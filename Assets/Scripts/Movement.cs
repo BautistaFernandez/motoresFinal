@@ -4,12 +4,13 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 5f;
+    private float speed = 3f;
 
     private Rigidbody rb;
     private Vector2 movementEntry;
 
     private PlayerControls controls;
+    //public Animator animator;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class Movement : MonoBehaviour
         controls = new PlayerControls();
 
         controls.Player.Movement.performed += contexto => movementEntry = contexto.ReadValue<Vector2>();
-        controls.Player.Movement.canceled += contexto => movementEntry = Vector2.zero; 
+        controls.Player.Movement.canceled += contexto => movementEntry = Vector2.zero;
     }
 
     private void OnEnable()
@@ -35,9 +36,13 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 direction = new Vector3(movementEntry.x, 0f, movementEntry.y);
+        Vector3 movement = (transform.right * movementEntry.x) + (transform.forward * movementEntry.y);
 
-        Vector3 finalSpeed = direction * speed;
+        //animator.SetFloat("Speed", movement.magnitude);
+
+        movement.Normalize();
+
+        Vector3 finalSpeed = movement * speed;
 
         finalSpeed.y = rb.linearVelocity.y;
 
