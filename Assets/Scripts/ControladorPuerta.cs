@@ -1,14 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem; 
 
 public class ControladorPuerta : MonoBehaviour
 {
-    [Header("Configuración de Movimiento")]
     [SerializeField] private float anguloApertura = 90f;
-    [SerializeField] private float velocidad = 3f;     
-
-    [Header("Interacción")]
-    [SerializeField] private KeyCode teclaInteraccion = KeyCode.E;
-    [SerializeField] private string tagDelJugador = "Player"; 
+    [SerializeField] private float velocidad = 3f;
 
     private bool estaAbierta = false;
     private bool jugadorCerca = false;
@@ -24,36 +20,26 @@ public class ControladorPuerta : MonoBehaviour
 
     void Update()
     {
-        if (jugadorCerca && Input.GetKeyDown(teclaInteraccion))
+        if (jugadorCerca && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            estaAbierta = !estaAbierta; 
+            estaAbierta = !estaAbierta;
 
-            float anguloActual = transform.localEulerAngles.y;
-            Debug.Log("Estado cambiado. Ángulo actual (truncado): " + (int)anguloActual);
+            int anguloTruncado = (int)transform.localEulerAngles.y;
+            Debug.Log("Puerta movida. Ángulo actual: " + anguloTruncado);
         }
 
         Quaternion objetivo = estaAbierta ? rotacionAbierta : rotacionCerrada;
-
         transform.localRotation = Quaternion.Slerp(transform.localRotation, objetivo, Time.deltaTime * velocidad);
     }
 
-    // --- DETECCIÓN POR TRIGGER ---
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(tagDelJugador))
-        {
-            jugadorCerca = true;
-            Debug.Log("Cerca de la puerta. Presioná " + teclaInteraccion);
-        }
+        if (other.CompareTag("Player")) jugadorCerca = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(tagDelJugador))
-        {
-            jugadorCerca = false;
-        }
+        if (other.CompareTag("Player")) jugadorCerca = false;
     }
 }
 
