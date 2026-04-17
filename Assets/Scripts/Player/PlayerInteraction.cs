@@ -1,25 +1,26 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro; // ¡No olvides este namespace!
+using TMPro;
 
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Settings")]
     public Transform cam;
-    public float interactionDistance = 3f;
-    public float raycastHeightOffset = 1.5f; // Altura desde donde sale el rayo (ojos/pecho)
+    public float interactionDistance = 8f;
 
     [Header("UI")]
-    public TextMeshProUGUI promptText; // Arrastra aquí tu texto de la interfaz
+    public TextMeshProUGUI promptText;
 
     private GraspableObject actualObjectInHand;
     private PlayerControls control;
+    private bool tryInteract = false;
+    private Collider playerCollider;
 
     private void Awake()
     {
         control = new PlayerControls();
-
-        control.Player.Interaction.performed += context => InteractionTry();
+        control.Player.Interaction.performed += context => tryInteract = true;
+        playerCollider = GetComponent<Collider>();
     }
 
     private void OnEnable() => control.Enable();
@@ -28,22 +29,25 @@ public class PlayerInteraction : MonoBehaviour
     private void Update()
     {
         UpdateUI();
+
+        if (tryInteract)
+        {
+            InteractionTry();
+            tryInteract = false;
+        }
     }
 
     private void UpdateUI()
     {
-        // Si ya tenemos algo en la mano, no mostramos el aviso de "Presionar E"
         if (actualObjectInHand != null)
         {
             promptText.gameObject.SetActive(false);
             return;
         }
 
-        // Lanzamos el rayo para ver si estamos mirando un objeto agarrable
-        Vector3 rayOrigin = transform.position + Vector3.up * raycastHeightOffset;
         RaycastHit hit;
 
-        if (Physics.Raycast(rayOrigin, transform.forward, out hit, interactionDistance))
+        if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
             if (hit.collider.TryGetComponent(out GraspableObject foundObject))
             {
@@ -53,7 +57,6 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        // Si el rayo no toca nada o no es agarrable, ocultamos el texto
         promptText.gameObject.SetActive(false);
     }
 
@@ -61,22 +64,20 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (actualObjectInHand != null)
         {
-            actualObjectInHand.Drop();
+            actualObjectInHand.Drop(playerCollider);
             actualObjectInHand = null;
             return;
         }
 
-        Vector3 rayOrigin = transform.position + Vector3.up * raycastHeightOffset;
         RaycastHit hit;
 
-        // Dibujamos el rayo en la consola de escena para debuguear
-        Debug.DrawRay(rayOrigin, transform.forward * interactionDistance, Color.red, 2f);
+        Debug.DrawRay(cam.position, cam.forward * interactionDistance, Color.red, 2f);
 
-        if (Physics.Raycast(rayOrigin, transform.forward, out hit, interactionDistance))
+        if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
             if (hit.collider.TryGetComponent(out GraspableObject foundObject))
             {
-                foundObject.Take(cam);
+                foundObject.Take(cam, playerCollider);
                 actualObjectInHand = foundObject;
             }
         }

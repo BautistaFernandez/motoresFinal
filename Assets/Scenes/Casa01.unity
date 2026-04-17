@@ -1153,6 +1153,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2350481757991014790, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2350481757991014790, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1017885348}
@@ -5660,8 +5664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   cam: {fileID: 1017885348}
-  interactionDistance: 3
-  raycastHeightOffset: 3
+  interactionDistance: 8
   promptText: {fileID: 1279306021}
 --- !u!64 &1564547884
 MeshCollider:

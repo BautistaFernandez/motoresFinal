@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     [Header("Configuración")]
-    [SerializeField] private float speed = 3f;
+    [SerializeField] private float speed = 4f;
     [SerializeField] private float sensitivity = 0.1f;
     [SerializeField] private Transform playerCamera;
 
