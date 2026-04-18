@@ -15,7 +15,7 @@ public class ControladorPuerta : MonoBehaviour
     void Start()
     {
         rotacionCerrada = transform.localRotation;
-        rotacionAbierta = rotacionCerrada * Quaternion.Euler(0, anguloApertura, 0);
+        rotacionAbierta = rotacionCerrada * Quaternion.Euler(0, 0, anguloApertura);
     }
 
     void Update()
