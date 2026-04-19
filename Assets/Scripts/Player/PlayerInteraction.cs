@@ -11,7 +11,7 @@ public class PlayerInteraction : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI promptText;
 
-    private GraspableObject actualObjectInHand; 
+    private GraspableObject actualObjectInHand;
     private PlayerControls control;
     private bool tryInteract = false;
     private Collider playerCollider;
@@ -19,7 +19,6 @@ public class PlayerInteraction : MonoBehaviour
     private void Awake()
     {
         control = new PlayerControls();
-        
         control.Player.Interaction.performed += context => tryInteract = true;
         playerCollider = GetComponent<Collider>();
     }
@@ -30,26 +29,24 @@ public class PlayerInteraction : MonoBehaviour
     private void Update()
     {
         UpdateUI();
-
-        if (tryInteract)
-        {
-            InteractionTry();
-            tryInteract = false;
-        }
+        if (tryInteract) { InteractionTry(); tryInteract = false; }
     }
 
     private void UpdateUI()
     {
-      
-        if (actualObjectInHand != null)
-        {
-            promptText.gameObject.SetActive(false);
-            return;
-        }
+        if (actualObjectInHand != null) { promptText.gameObject.SetActive(false); return; }
 
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
+           
+            if (hit.collider.GetComponentInParent<DemonDoll>())
+            {
+                promptText.text = "Presiona [E] para activar muñeca";
+                promptText.gameObject.SetActive(true);
+                return;
+            }
+
             
             if (hit.collider.GetComponentInParent<GraspableObject>())
             {
@@ -58,7 +55,7 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
-            // 2. Nota
+         
             if (hit.collider.GetComponentInParent<NotaInteractuable>())
             {
                 promptText.text = "Presiona [E] para leer nota";
@@ -66,7 +63,7 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
-            // 3. Victoria
+           
             if (hit.collider.GetComponentInParent<LlaveVictoria>())
             {
                 promptText.text = "Presiona [E] para escapar";
@@ -74,51 +71,34 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
         }
-
         promptText.gameObject.SetActive(false);
     }
 
     private void InteractionTry()
     {
-     
-        if (actualObjectInHand != null)
-        {
-            actualObjectInHand.Drop(playerCollider);
-            actualObjectInHand = null;
-            return;
-        }
+        if (actualObjectInHand != null) { actualObjectInHand.Drop(playerCollider); actualObjectInHand = null; return; }
 
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-          
-            Debug.Log("Raycast impactó en: " + hit.collider.name);
-
-
-            GraspableObject grasp = hit.collider.GetComponentInParent<GraspableObject>();
-            if (grasp != null)
+            
+            if (hit.collider.GetComponentInParent<DemonDoll>())
             {
-                grasp.Take(cam, playerCollider);
-                actualObjectInHand = grasp;
-                return;
+                DollEventManager manager = Object.FindFirstObjectByType<DollEventManager>();
+                if (manager != null) manager.IniciarContador();
+                return; 
             }
 
             
-            NotaInteractuable nota = hit.collider.GetComponentInParent<NotaInteractuable>();
-            if (nota != null)
-            {
-                Debug.Log("Ejecutando Interactuar() en la nota...");
-                nota.Interactuar();
-                return;
-            }
+            GraspableObject grasp = hit.collider.GetComponentInParent<GraspableObject>();
+            if (grasp != null) { grasp.Take(cam, playerCollider); actualObjectInHand = grasp; return; }
 
-       
+            NotaInteractuable nota = hit.collider.GetComponentInParent<NotaInteractuable>();
+            if (nota != null) { nota.Interactuar(); return; }
+
+           
             LlaveVictoria victoria = hit.collider.GetComponentInParent<LlaveVictoria>();
-            if (victoria != null)
-            {
-                victoria.Victoria();
-                return;
-            }
+            if (victoria != null) { victoria.Victoria(); return; }
         }
     }
 }
