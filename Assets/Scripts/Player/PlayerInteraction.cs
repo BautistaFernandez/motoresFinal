@@ -50,7 +50,7 @@ public class PlayerInteraction : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            // 1. Prioridad: Graspable (Tu sistema original)
+            
             if (hit.collider.GetComponentInParent<GraspableObject>())
             {
                 promptText.text = "Presiona [E] para agarrar";
