@@ -6,7 +6,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     [Header("Settings")]
     public Transform cam;
-    public float interactionDistance = 8f;
+    public float interactionDistance = 4f; 
 
     [Header("UI")]
     public TextMeshProUGUI promptText;
@@ -19,6 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     private void Awake()
     {
         control = new PlayerControls();
+       
         control.Player.Interaction.performed += context => tryInteract = true;
         playerCollider = GetComponent<Collider>();
     }
@@ -39,6 +40,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void UpdateUI()
     {
+        
         if (actualObjectInHand != null)
         {
             promptText.gameObject.SetActive(false);
@@ -46,12 +48,28 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         RaycastHit hit;
-
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            if (hit.collider.TryGetComponent(out GraspableObject foundObject))
+            
+            if (hit.collider.TryGetComponent(out GraspableObject foundGraspable))
             {
-                promptText.text = "Press [E] to pick up";
+                promptText.text = "Presiona [E] para agarrar";
+                promptText.gameObject.SetActive(true);
+                return;
+            }
+
+           
+            if (hit.collider.TryGetComponent(out NotaInteractuable foundNota))
+            {
+                promptText.text = "Presiona [E] para leer nota";
+                promptText.gameObject.SetActive(true);
+                return;
+            }
+
+         
+            if (hit.collider.TryGetComponent(out LlaveVictoria foundVictoria))
+            {
+                promptText.text = "Presiona [E] para escapar";
                 promptText.gameObject.SetActive(true);
                 return;
             }
@@ -62,6 +80,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void InteractionTry()
     {
+       
         if (actualObjectInHand != null)
         {
             actualObjectInHand.Drop(playerCollider);
@@ -70,15 +89,25 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         RaycastHit hit;
-
         Debug.DrawRay(cam.position, cam.forward * interactionDistance, Color.red, 2f);
 
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            if (hit.collider.TryGetComponent(out GraspableObject foundObject))
+           
+            if (hit.collider.TryGetComponent(out GraspableObject foundGraspable))
             {
-                foundObject.Take(cam, playerCollider);
-                actualObjectInHand = foundObject;
+                foundGraspable.Take(cam, playerCollider);
+                actualObjectInHand = foundGraspable;
+            }
+           
+            else if (hit.collider.TryGetComponent(out NotaInteractuable foundNota))
+            {
+                foundNota.Interactuar();
+            }
+            
+            else if (hit.collider.TryGetComponent(out LlaveVictoria foundVictoria))
+            {
+                foundVictoria.Victoria();
             }
         }
     }
