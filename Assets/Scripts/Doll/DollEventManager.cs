@@ -8,13 +8,16 @@ public class DollEventManager : MonoBehaviour
     [Header("Configuración Doll")]
     private float waitingTime = 10f;
     [SerializeField] private DemonDoll demonDoll;
-    public AudioSource risaAudio; 
+
+    [Header("Sonidos")]
+    public AudioSource risaAudio;  
+    public AudioSource fondoAudio; 
 
     [Header("Temporizador")]
     public float tiempoRestante = 120f;
     private bool contadorActivo = false;
     public TextMeshProUGUI textoReloj;
-    public string escenaGameOver = "GameOver";
+    public string escenaGameOver = "GameOverScene";
 
     [Header("UI Alerta")]
     public TextMeshProUGUI mensajeAlerta;
@@ -23,8 +26,6 @@ public class DollEventManager : MonoBehaviour
     {
        
         if (demonDoll != null) demonDoll.gameObject.SetActive(false);
-
-        
         if (mensajeAlerta != null) mensajeAlerta.gameObject.SetActive(false);
         if (textoReloj != null) textoReloj.gameObject.SetActive(false);
 
@@ -33,11 +34,29 @@ public class DollEventManager : MonoBehaviour
 
     private IEnumerator timerAparision()
     {
-        yield return new WaitForSeconds(waitingTime);
-        if (demonDoll != null) demonDoll.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(waitingTime);
 
-      
-        if (risaAudio != null) risaAudio.Play();
+        if (demonDoll != null)
+        {
+            demonDoll.gameObject.SetActive(true);
+
+           
+            if (fondoAudio != null) fondoAudio.Play();
+
+        
+            StartCoroutine(BucleRisa());
+        }
+    }
+
+    private IEnumerator BucleRisa()
+    {
+        while (true)
+        {
+            if (risaAudio != null) risaAudio.Play();
+
+            
+            yield return new WaitForSecondsRealtime(10f);
+        }
     }
 
     public void IniciarContador()
@@ -45,12 +64,12 @@ public class DollEventManager : MonoBehaviour
         if (!contadorActivo)
         {
             contadorActivo = true;
+            Time.timeScale = 1f;
 
-           
             if (textoReloj != null) textoReloj.gameObject.SetActive(true);
-            StartCoroutine(MostrarCartelEscapa());
 
-            Debug.Log("Evento iniciado: Contador y Alerta activados.");
+            StartCoroutine(MostrarCartelEscapa());
+            Debug.Log("Contador de 2 min iniciado.");
         }
     }
 
@@ -58,9 +77,9 @@ public class DollEventManager : MonoBehaviour
     {
         if (mensajeAlerta != null)
         {
-            mensajeAlerta.text = "¡ESCAPA O MUERE !";
+            mensajeAlerta.text = "     ¡ESCAPA O MUERE! \r\nBusca las pistas en la casa";
             mensajeAlerta.gameObject.SetActive(true);
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSecondsRealtime(4f);
             mensajeAlerta.gameObject.SetActive(false);
         }
     }
@@ -71,12 +90,12 @@ public class DollEventManager : MonoBehaviour
         {
             if (tiempoRestante > 0)
             {
-                tiempoRestante -= Time.deltaTime;
+               
+                tiempoRestante -= Time.unscaledDeltaTime;
                 ActualizarReloj();
             }
             else
             {
-               
                 SceneManager.LoadScene(escenaGameOver);
             }
         }
