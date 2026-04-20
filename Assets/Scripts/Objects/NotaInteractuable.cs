@@ -3,6 +3,8 @@ using UnityEngine;
 public class NotaInteractuable : MonoBehaviour
 {
     public GameObject canvasCarta;
+    public GameObject barreraInvisible;
+
     private bool estaAbierta = false;
 
     public void Interactuar()
@@ -12,6 +14,13 @@ public class NotaInteractuable : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        // --- Y ESTA LÓGICA ---
+        if (barreraInvisible != null)
+        {
+            barreraInvisible.SetActive(false);
+            Debug.Log("Nota leída: Barrera desactivada.");
+        }
     }
 
     void Update()

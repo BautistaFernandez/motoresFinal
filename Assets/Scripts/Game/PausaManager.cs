@@ -21,6 +21,10 @@ public class PausaManager : MonoBehaviour
         menuPausa.SetActive(true);
         Time.timeScale = 0f;
         juegoPausado = true;
+
+       
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;                
     }
 
     public void Continuar()
@@ -28,13 +32,15 @@ public class PausaManager : MonoBehaviour
         menuPausa.SetActive(false);
         Time.timeScale = 1f;
         juegoPausado = false;
+
+    
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;                 
     }
 
     public void IrAlMenu()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; 
         SceneManager.LoadScene("MainMenu");
     }
 }
-
-//tecla p para la pausa
