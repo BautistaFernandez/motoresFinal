@@ -12,6 +12,11 @@ public class ControladorPuerta : MonoBehaviour
     private Quaternion rotacionCerrada;
     private Quaternion rotacionAbierta;
 
+    [Header("Doors Sounds")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openDoor;
+    [SerializeField] private AudioClip closeDoor;
+
     void Start()
     {
         rotacionCerrada = transform.localRotation;
@@ -24,13 +29,21 @@ public class ControladorPuerta : MonoBehaviour
         {
             estaAbierta = !estaAbierta;
 
+            if (estaAbierta)
+            {
+                audioSource.PlayOneShot(openDoor);
+            }
+            else
+            {
+                audioSource.PlayOneShot(closeDoor);
+            }
+
             int anguloTruncado = (int)transform.localEulerAngles.y;
             Debug.Log("Puerta movida. Ángulo actual: " + anguloTruncado);
         }
-
         Quaternion objetivo = estaAbierta ? rotacionAbierta : rotacionCerrada;
         transform.localRotation = Quaternion.Slerp(transform.localRotation, objetivo, Time.deltaTime * velocidad);
-    }
+        }
 
     private void OnTriggerEnter(Collider other)
     {

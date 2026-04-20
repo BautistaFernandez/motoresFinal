@@ -9,6 +9,12 @@ public class Movement : MonoBehaviour
     [SerializeField] private float sensitivity = 0.1f;
     [SerializeField] private Transform playerCamera;
 
+    [Header("Footsteps")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] footstep;
+    private float distance  = 2f;
+    private float counter;
+
     private Rigidbody rb;
     private Vector2 movementEntry;
     private Vector2 lookEntry;
@@ -51,6 +57,8 @@ public class Movement : MonoBehaviour
         finalSpeed.y = rb.linearVelocity.y;
 
         rb.linearVelocity = finalSpeed;
+
+        Footsteps();
     }
 
     private void RotarCamara()
@@ -65,5 +73,28 @@ public class Movement : MonoBehaviour
 
  
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+
+    private void Footsteps()
+    {
+        if (movementEntry.magnitude > 0.1f)
+        {
+            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            counter += horizontalVelocity.magnitude * Time.fixedDeltaTime;
+
+            if (counter >= distance)
+            {
+                PlayFootstepSound();
+                counter = 0f;
+            }
+        }  
+    }
+
+
+   private void PlayFootstepSound()
+    {
+       int footstepPick = UnityEngine.Random.Range(0, footstep.Length);
+        audioSource.PlayOneShot(footstep[footstepPick]);
     }
 }
