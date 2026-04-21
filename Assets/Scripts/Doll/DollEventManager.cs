@@ -6,21 +6,21 @@ using TMPro;
 public class DollEventManager : MonoBehaviour
 {
     [Header("Configuración Doll")]
-    private float waitingTime = 10f;
+    private float waitingTime = 3f;
     [SerializeField] private DemonDoll demonDoll;
 
     [Header("Sonidos")]
-    public AudioSource risaAudio;  
-    public AudioSource fondoAudio; 
+    [SerializeField] private AudioSource risaAudio;
+    [SerializeField] private AudioSource fondoAudio; 
 
     [Header("Temporizador")]
     public float tiempoRestante = 120f;
     private bool contadorActivo = false;
-    public TextMeshProUGUI textoReloj;
-    public string escenaGameOver = "GameOverScene";
+    [SerializeField] private TextMeshProUGUI textoReloj;
+    private string escenaGameOver = "GameOverScene";
 
     [Header("UI Alerta")]
-    public TextMeshProUGUI mensajeAlerta;
+    [SerializeField] private TextMeshProUGUI mensajeAlerta;
 
     void Start()
     {
@@ -40,10 +40,8 @@ public class DollEventManager : MonoBehaviour
         {
             demonDoll.gameObject.SetActive(true);
 
-           
             if (fondoAudio != null) fondoAudio.Play();
 
-        
             StartCoroutine(BucleRisa());
         }
     }
