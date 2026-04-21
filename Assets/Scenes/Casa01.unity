@@ -2517,6 +2517,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 5.5279115e-11
       objectReference: {fileID: 0}
+    - target: {fileID: 4065989315527697764, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 19402ea84b5921f48b4d224362afd76a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
