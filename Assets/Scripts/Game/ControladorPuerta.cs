@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ControladorPuerta : MonoBehaviour
 {
+    [Header("Configuración de Movimiento")]
     [SerializeField] private float anguloApertura = 90f;
     [SerializeField] private float velocidad = 3f;
 
-    [Header("Doors Sounds")]
+    [Header("Sonidos")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openDoor;
     [SerializeField] private AudioClip closeDoor;
@@ -14,9 +16,8 @@ public class ControladorPuerta : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject pressEText;
 
-    [Header("Llave (solo aplica si la puerta tiene tag FinalDoor)")]
+    [Header("Estado")]
     public bool tieneLlave = false;
-
     private bool estaAbierta = false;
     private bool jugadorCerca = false;
     private Quaternion rotacionCerrada;
@@ -26,8 +27,6 @@ public class ControladorPuerta : MonoBehaviour
     {
         rotacionCerrada = transform.localRotation;
         rotacionAbierta = rotacionCerrada * Quaternion.Euler(0, 0, anguloApertura);
-
-        //if (pressEText != null) pressEText.SetActive(false);
     }
 
     void Update()
@@ -43,21 +42,47 @@ public class ControladorPuerta : MonoBehaviour
 
     private void IntentarAbrir()
     {
-        if (!CompareTag("FinalDoor"))
+       
+        if (CompareTag("FinalDoor"))
+        {
+            if (tieneLlave) Accionar();
+            else Debug.Log("Falta la llave del Garage");
+        }
+        
+        else if (CompareTag("FinalDoor2"))
+        {
+            if (tieneLlave)
+            {
+                Accionar();
+               
+                if (estaAbierta) Invoke("IrAVictoria", 1.5f);
+            }
+            else
+            {
+                Debug.Log("Falta la llave de salida final");
+            }
+        }
+       
+        else
         {
             Accionar();
         }
-        else if (tieneLlave)
-        {
-            Accionar();
-        }
-        // else: puerta final sin llave, no hace nada
     }
 
     private void Accionar()
     {
         estaAbierta = !estaAbierta;
-        audioSource.PlayOneShot(estaAbierta ? openDoor : closeDoor);
+        if (audioSource != null) audioSource.PlayOneShot(estaAbierta ? openDoor : closeDoor);
+    }
+
+    private void IrAVictoria()
+    {
+    
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 1f; 
+
+        SceneManager.LoadScene("WinScene");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,12 +90,7 @@ public class ControladorPuerta : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             jugadorCerca = true;
-            Debug.Log("Enter - pressEText es null? " + (pressEText == null));
-            if (pressEText != null)
-            {
-                pressEText.SetActive(true);
-                Debug.Log("activeSelf: " + pressEText.activeSelf + " | activeInHierarchy: " + pressEText.activeInHierarchy);
-            }
+            if (pressEText != null) pressEText.SetActive(true);
         }
     }
 
@@ -78,15 +98,8 @@ public class ControladorPuerta : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Exit trigger de: " + gameObject.name);
             jugadorCerca = false;
             if (pressEText != null) pressEText.SetActive(false);
         }
     }
 }
-
-// agregar tag del player al personaje para el trigger funcione, y agregar un collider con isTrigger al area de la puerta para detectar la cercania del jugador.
-//agregar collider a la puerta y istrigger
-//asigar script al controladorPuertta al objeto puerta o donde hace pivot de visagra
-// boton de accion la tecla E para estas cosas ?
-// Cuando caminás hacia la zona del Box Collider de la puerta, el método OnTriggerEnter se activa y pone jugadorCerca en true.

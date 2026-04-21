@@ -6,7 +6,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     [Header("Settings")]
     public Transform cam;
-    public float interactionDistance = 4f;
+    public float interactionDistance = 8f;
 
     [Header("UI")]
     public TextMeshProUGUI promptText;
@@ -28,62 +28,43 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-   
         if (promptText == null || cam == null) return;
-
         UpdateUI();
-
-        if (tryInteract)
-        {
-            InteractionTry();
-            tryInteract = false;
-        }
+        if (tryInteract) { InteractionTry(); tryInteract = false; }
     }
 
     private void UpdateUI()
     {
-        if (actualObjectInHand != null)
-        {
-            promptText.gameObject.SetActive(false);
-            return;
-        }
+        if (actualObjectInHand != null) { promptText.gameObject.SetActive(false); return; }
 
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-          
-            if (hit.collider.GetComponentInParent<DemonDoll>() != null)
+            if (hit.collider.GetComponentInParent<DemonDoll>())
             {
                 promptText.text = "Presiona [E] para activar muñeca";
                 promptText.gameObject.SetActive(true);
                 return;
             }
-
-           
-            if (hit.collider.GetComponentInParent<NotaInteractuable>() != null)
+            if (hit.collider.GetComponentInParent<LlaveRecogible>())
+            {
+                promptText.text = "Presiona [E] para agarrar llave";
+                promptText.gameObject.SetActive(true);
+                return;
+            }
+            if (hit.collider.GetComponentInParent<NotaInteractuable>())
             {
                 promptText.text = "Presiona [E] para leer nota";
                 promptText.gameObject.SetActive(true);
                 return;
             }
-
-          
-            if (hit.collider.GetComponentInParent<LlaveVictoria>() != null)
-            {
-                promptText.text = "Presiona [E] para escapar";
-                promptText.gameObject.SetActive(true);
-                return;
-            }
-
-         
-            if (hit.collider.GetComponentInParent<GraspableObject>() != null)
+            if (hit.collider.GetComponentInParent<GraspableObject>())
             {
                 promptText.text = "Presiona [E] para agarrar";
                 promptText.gameObject.SetActive(true);
                 return;
             }
         }
-
         promptText.gameObject.SetActive(false);
     }
 
@@ -99,25 +80,29 @@ public class PlayerInteraction : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            
-            DemonDoll doll = hit.collider.GetComponentInParent<DemonDoll>();
+            var doll = hit.collider.GetComponentInParent<DemonDoll>();
             if (doll != null)
             {
-                DollEventManager manager = Object.FindFirstObjectByType<DollEventManager>();
+                var manager = Object.FindFirstObjectByType<DollEventManager>();
                 if (manager != null) manager.IniciarContador();
                 return;
             }
 
-           
-            NotaInteractuable nota = hit.collider.GetComponentInParent<NotaInteractuable>();
-            if (nota != null) { nota.Interactuar(); return; }
+            var llave = hit.collider.GetComponentInParent<LlaveRecogible>();
+            if (llave != null)
+            {
+                llave.Recoger();
+                return;
+            }
 
-         
-            LlaveVictoria victoria = hit.collider.GetComponentInParent<LlaveVictoria>();
-            if (victoria != null) { victoria.Victoria(); return; }
+            var nota = hit.collider.GetComponentInParent<NotaInteractuable>();
+            if (nota != null)
+            {
+                nota.Interactuar();
+                return;
+            }
 
-           
-            GraspableObject grasp = hit.collider.GetComponentInParent<GraspableObject>();
+            var grasp = hit.collider.GetComponentInParent<GraspableObject>();
             if (grasp != null)
             {
                 grasp.Take(cam, playerCollider);
