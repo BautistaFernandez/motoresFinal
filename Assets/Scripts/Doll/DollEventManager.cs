@@ -10,17 +10,17 @@ public class DollEventManager : MonoBehaviour
     [SerializeField] private DemonDoll demonDoll;
 
     [Header("Sonidos")]
-    public AudioSource risaAudio;  
-    public AudioSource fondoAudio; 
+    [SerializeField] private AudioSource risaAudio;
+    [SerializeField] private AudioSource fondoAudio; 
 
     [Header("Temporizador")]
     public float tiempoRestante = 120f;
     private bool contadorActivo = false;
-    public TextMeshProUGUI textoReloj;
-    public string escenaGameOver = "GameOverScene";
+    [SerializeField] private TextMeshProUGUI textoReloj;
+    private string escenaGameOver = "GameOverScene";
 
     [Header("UI Alerta")]
-    [SerializeField]public TextMeshProUGUI mensajeAlerta;
+    [SerializeField] private TextMeshProUGUI mensajeAlerta;
 
     void Start()
     {
