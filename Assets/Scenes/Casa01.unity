@@ -8303,7 +8303,7 @@ GameObject:
   - component: {fileID: 1354391665}
   m_Layer: 0
   m_Name: Door (1)
-  m_TagString: FinalDoor
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
