@@ -20,8 +20,6 @@ public class DemonDoll : MonoBehaviour
         // GetComponent<AudioSource>().Play();
         // GetComponent<Animator>().SetTrigger("Susto");
         Debug.Log("Evento: Aparece la doll");
-
-
     }
 
     public void Invisible()

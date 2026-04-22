@@ -404,7 +404,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.15610829, g: 0.690566, b: 0.1342043, a: 1}
-  m_Intensity: 37.39
+  m_Intensity: 5
   m_Range: 10.2
   m_SpotAngle: 89.64139
   m_InnerSpotAngle: 56.518528
@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 96845338}
   m_Layer: 0
   m_Name: FinalDoor2
-  m_TagString: FinalDoor2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -858,6 +858,7 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   pressEText: {fileID: 0}
+  objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!65 &96845340
 BoxCollider:
@@ -1192,7 +1193,8 @@ MonoBehaviour:
   audioSource: {fileID: 189700595}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &189700591
 BoxCollider:
@@ -1437,13 +1439,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PensamientosManager
   textoPensamiento: {fileID: 952324874}
   listaPensamientos:
-  - Siento que me miran desde la oscuridad... no quiero darme vuelta
-  - Llave llave, donde estara la llave para salir
+  - "Y esta mu\xF1eca? De donde sali\xF3?"
   - "Hace fr\xEDo. Demasiado fr\xEDo para ser una casa normal. Tengo que salir de
     ac\xE1"
-  - Si no encuentro la salida pronto, presiento que no voy a contar el cuento
+  - "Donde estar\xE1 esa maldita llave!?"
+  - Si no encuentro la salida pronto, presiento que no voy a sobrevivir
   - "Esa risa... no suena como una nena de verdad. Algo est\xE1 muy mal"
-  - "\xBFEsa mu\xF1eca estaba ah\xED antes? Jurar\xEDa que se movi\xF3 un poco..."
+  - "Jurar\xEDa que la mu\xF1eca se movi\xF3 un poco"
   - Siento que las paredes se cierran... tengo que encontrar esa llave pront
   - "\xBFCu\xE1nto tiempo pas\xF3? Siento que llevo horas en esta pesadilla"
   - "Est\xE1 cerca... puedo sentir su aliento fr\xEDo roz\xE1ndome el cuello"
@@ -1452,14 +1454,14 @@ MonoBehaviour:
   - "La mu\xF1eca... sus ojos me siguen a donde voy, me est\xE1n quemando la nuca"
   - "No mires atr\xE1s. Pase lo que pase, no mires atr\xE1s"
   - Tengo miedo, no quiero morir
-  - "Es ahora o nunca. \xA1Corr\xE9 como si tu vida dependiera de esto, porque as\xED
-    es!"
+  - Es ahora o nunca..
   - "\xA1La cerradura tiene que ceder! \xA1No voy a morir en este lugar olvidado
     por Dios!"
   - Tengo que apurarme, no llego
-  - "\xA1LA LLAVE FINAL! \xA1TIENE QUE ESTAR POR AC\xC1, POR FAVOR!"
+  - ME ESTOY VOLVIENDO LOCO
   - "\xA1YA CASI! \xA1CORR\xC9 O MOR\xCD, CORR\xC9 O MOR\xCD!"
-  - "\xA1LA PUERTA! \xA1SOLO UN PASO M\xC1S Y SALGO DE ESTE INFIERNO!"
+  - MORIR, ES VIVIR. MORIR, ES VIVIR
+  tiempoInicialPensamiento: 1
   tiempoEntrePensamientos: 10
   duracionEnPantalla: 4
 --- !u!64 &193448170
@@ -1572,6 +1574,133 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4699978135940239973, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+--- !u!1 &237609874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 237609875}
+  - component: {fileID: 237609877}
+  - component: {fileID: 237609876}
+  m_Layer: 0
+  m_Name: Spot Light (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &237609875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237609874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000024399327, y: -0.9932909, z: 0.0000000025274625, w: 0.11564323}
+  m_LocalPosition: {x: -0.00008, y: 0.0002, z: 0.00186}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 996432051}
+  m_LocalEulerAnglesHint: {x: 0, y: -166.719, z: 0}
+--- !u!114 &237609876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237609874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 0
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
+--- !u!108 &237609877
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237609874}
+  m_Enabled: 1
+  serializedVersion: 12
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1.59
+  m_Range: 8.088577
+  m_SpotAngle: 160.05064
+  m_InnerSpotAngle: 148.7734
+  m_CookieSize2D: {x: 0.5, y: 0.5}
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 20000
+  m_UseColorTemperature: 1
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!114 &239851023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1719,7 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &239851024
 BoxCollider:
@@ -2124,7 +2254,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 19.67
+  m_Intensity: 12
   m_Range: 10.5
   m_SpotAngle: 170.9012
   m_InnerSpotAngle: 148.7734
@@ -2306,6 +2436,7 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!64 &348720818
 MeshCollider:
@@ -2867,6 +2998,82 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4632345630377895189, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+--- !u!1 &525118878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525118879}
+  - component: {fileID: 525118881}
+  - component: {fileID: 525118880}
+  m_Layer: 5
+  m_Name: Border
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &525118879
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525118878}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1166106644}
+  m_Father: {fileID: 1226079671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 46.3, y: 3}
+  m_SizeDelta: {x: 530, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &525118880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525118878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 9c1e4e3c5679a754ca2cecfa289b891a, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &525118881
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525118878}
+  m_CullTransparentMesh: 1
 --- !u!64 &531906626
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3065,7 +3272,8 @@ MonoBehaviour:
   audioSource: {fileID: 548014040}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!82 &548014040
 AudioSource:
@@ -3176,6 +3384,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2350481757991014790, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: footstep
+      value: 
+      objectReference: {fileID: 8300000, guid: 118bb367fbbf0ed41b333d8e73e2db72, type: 3}
+    - target: {fileID: 2350481757991014790, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: stepDistance
+      value: 2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 3168435426368156849, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 164.878
@@ -3216,10 +3432,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3592259663988627752, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
       propertyPath: promptText
       value: 
       objectReference: {fileID: 1461620211}
+    - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: objectivePanel
+      value: 
+      objectReference: {fileID: 1226079673}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3320,7 +3544,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 14.72
+  m_Intensity: 8
   m_Range: 6.7453437
   m_SpotAngle: 179
   m_InnerSpotAngle: 56.518528
@@ -3543,6 +3767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LlaveRecogible
   tagPuertaAabrir: FinalDoor2
+  objectivePanel: {fileID: 1226079673}
 --- !u!65 &576536973
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3701,7 +3926,8 @@ MonoBehaviour:
   audioSource: {fileID: 592690828}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &592690824
 BoxCollider:
@@ -4364,6 +4590,143 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6169928966953541961, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+--- !u!1 &672976908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 672976909}
+  - component: {fileID: 672976911}
+  - component: {fileID: 672976910}
+  m_Layer: 5
+  m_Name: ObjectiveText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &672976909
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672976908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1166106644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -88.5, y: -11.2}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &672976910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672976908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -67.89813, y: 0, z: -245.32251, w: 20.025776}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &672976911
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672976908}
+  m_CullTransparentMesh: 1
 --- !u!64 &682580023
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4560,6 +4923,7 @@ RectTransform:
   - {fileID: 1875526964}
   - {fileID: 1461620210}
   - {fileID: 1816664056}
+  - {fileID: 1226079671}
   m_Father: {fileID: 1118594710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4640,7 +5004,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 11.88
+  m_Intensity: 11
   m_Range: 12.606677
   m_SpotAngle: 179
   m_InnerSpotAngle: 64.232185
@@ -5526,7 +5890,8 @@ MonoBehaviour:
   audioSource: {fileID: 910132816}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &910132812
 BoxCollider:
@@ -6008,7 +6373,8 @@ MonoBehaviour:
   audioSource: {fileID: 958732826}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &958732822
 BoxCollider:
@@ -7298,6 +7664,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -7805027332812919239, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
   m_PrefabInstance: {fileID: 1393168111}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1166106643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1166106644}
+  - component: {fileID: 1166106646}
+  - component: {fileID: 1166106645}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1166106644
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166106643}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 672976909}
+  m_Father: {fileID: 525118879}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -6, y: -6}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1166106645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166106643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.47058824}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1166106646
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166106643}
+  m_CullTransparentMesh: 1
 --- !u!64 &1193410604
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7391,6 +7833,72 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7781437527864373169, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+--- !u!1 &1226079670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1226079671}
+  - component: {fileID: 1226079673}
+  - component: {fileID: 1226079672}
+  m_Layer: 5
+  m_Name: ObjectivePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1226079671
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226079670}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 525118879}
+  m_Father: {fileID: 688635783}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -707, y: -485}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1226079672
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226079670}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &1226079673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226079670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5318e1d84a822ee44a39d04e42e79cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectivePanel
+  canvasGroup: {fileID: 1226079672}
+  objectiveText: {fileID: 672976910}
+  fadeDuration: 0.5
+  slideDistance: 20
 --- !u!64 &1230217950
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7604,6 +8112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LlaveRecogible
   tagPuertaAabrir: FinalDoor
+  objectivePanel: {fileID: 1226079673}
 --- !u!65 &1271088848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7701,7 +8210,8 @@ MonoBehaviour:
   audioSource: {fileID: 1295393313}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1295393309
 BoxCollider:
@@ -7976,7 +8486,8 @@ MonoBehaviour:
   audioSource: {fileID: 1296726776}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1296726772
 BoxCollider:
@@ -8242,6 +8753,7 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!65 &1347837593
 BoxCollider:
@@ -8303,7 +8815,7 @@ GameObject:
   - component: {fileID: 1354391665}
   m_Layer: 0
   m_Name: Door (1)
-  m_TagString: Untagged
+  m_TagString: FinalDoor2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8361,7 +8873,8 @@ MonoBehaviour:
   audioSource: {fileID: 1354391665}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!64 &1354391662
 MeshCollider:
@@ -8583,6 +9096,7 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   pressEText: {fileID: 0}
+  objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!1001 &1393168111
 PrefabInstance:
@@ -9669,6 +10183,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -9091572730783997703, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 669528959}
+    - targetCorrespondingSourceObject: {fileID: -9091572730783997703, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 237609875}
     - targetCorrespondingSourceObject: {fileID: -857753535768641025, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1701178845}
@@ -11433,7 +11950,8 @@ MonoBehaviour:
   audioSource: {fileID: 1473216545}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1473216544
 BoxCollider:
@@ -11675,7 +12193,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.15610829, g: 0.690566, b: 0.1342043, a: 1}
-  m_Intensity: 27.66
+  m_Intensity: 3.5
   m_Range: 8.20758
   m_SpotAngle: 160.50877
   m_InnerSpotAngle: 88.42696
@@ -12050,6 +12568,7 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!1 &1575773950
 GameObject:
@@ -12355,7 +12874,8 @@ MonoBehaviour:
   audioSource: {fileID: 1636593954}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1636593950
 BoxCollider:
@@ -13078,7 +13598,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.7635323, g: 1, b: 0.7377358, a: 1}
-  m_Intensity: 9.4
+  m_Intensity: 15.8
   m_Range: 13.482358
   m_SpotAngle: 80.44507
   m_InnerSpotAngle: 80.44507
@@ -13176,6 +13696,7 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!64 &1795215809
 MeshCollider:
@@ -13307,7 +13828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1802730286
 Transform:
   m_ObjectHideFlags: 0
@@ -13931,7 +14452,8 @@ MonoBehaviour:
   audioSource: {fileID: 1941915831}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 0}
+  pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1941915827
 BoxCollider:
@@ -14135,6 +14657,7 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   pressEText: {fileID: 1461620209}
+  objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1987334376
 BoxCollider:
@@ -14230,7 +14753,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 19.67
+  m_Intensity: 12
   m_Range: 10.5
   m_SpotAngle: 170.9012
   m_InnerSpotAngle: 148.7734
@@ -14940,7 +15463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3697221055635680743, guid: 31323c2a83d726949be2c32b5506c3fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.113
+      value: 2.007
       objectReference: {fileID: 0}
     - target: {fileID: 3697221055635680743, guid: 31323c2a83d726949be2c32b5506c3fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15011,7 +15534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3125171074447292754, guid: 1482d068cb1e6e14ea51a0ca2c65d329, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.77
+      value: 3.23
       objectReference: {fileID: 0}
     - target: {fileID: 3125171074447292754, guid: 1482d068cb1e6e14ea51a0ca2c65d329, type: 3}
       propertyPath: m_LocalPosition.z

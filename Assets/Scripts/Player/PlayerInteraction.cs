@@ -5,11 +5,14 @@ using TMPro;
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Settings")]
-    public Transform cam;
-    public float interactionDistance = 8f;
+    [SerializeField] private Transform cam;
+    [SerializeField] private float interactionDistance = 8f;
 
     [Header("UI")]
-    public TextMeshProUGUI promptText;
+    [SerializeField] private TextMeshProUGUI promptText;
+
+    [Header("Objective UI")]
+    [SerializeField] private ObjectivePanel objectivePanel;
 
     private GraspableObject actualObjectInHand;
     private PlayerControls control;
@@ -85,6 +88,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 var manager = Object.FindFirstObjectByType<DollEventManager>();
                 if (manager != null) manager.IniciarContador();
+                objectivePanel.Show("Escapa de la casa");
                 return;
             }
 

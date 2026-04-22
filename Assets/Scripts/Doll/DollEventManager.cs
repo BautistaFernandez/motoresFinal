@@ -6,7 +6,7 @@ using TMPro;
 public class DollEventManager : MonoBehaviour
 {
     [Header("Configuración Doll")]
-    private float waitingTime = 3f;
+    private float waitingTime = 1f;
     [SerializeField] private DemonDoll demonDoll;
 
     [Header("Sonidos")]
@@ -14,7 +14,7 @@ public class DollEventManager : MonoBehaviour
     [SerializeField] private AudioSource fondoAudio; 
 
     [Header("Temporizador")]
-    public float tiempoRestante = 120f;
+    public float tiempoRestante = 240f;
     private bool contadorActivo = false;
     [SerializeField] private TextMeshProUGUI textoReloj;
     private string escenaGameOver = "GameOverScene";
@@ -67,7 +67,7 @@ public class DollEventManager : MonoBehaviour
             if (textoReloj != null) textoReloj.gameObject.SetActive(true);
 
             StartCoroutine(MostrarCartelEscapa());
-            Debug.Log("Contador de 2 min iniciado.");
+            Debug.Log("Contador de 4 min iniciado.");
         }
     }
 

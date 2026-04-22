@@ -16,6 +16,9 @@ public class ControladorPuerta : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject pressEText;
 
+    [Header("Objective UI")]
+    [SerializeField] private ObjectivePanel objectivePanel;
+
     [Header("Estado")]
     public bool tieneLlave = false;
     private bool estaAbierta = false;
@@ -46,7 +49,8 @@ public class ControladorPuerta : MonoBehaviour
         if (CompareTag("FinalDoor"))
         {
             if (tieneLlave) Accionar();
-            else Debug.Log("Falta la llave del Garage");
+            
+            else objectivePanel.Show("Encuentra la llave del garage");
         }
         
         else if (CompareTag("FinalDoor2"))
@@ -59,7 +63,7 @@ public class ControladorPuerta : MonoBehaviour
             }
             else
             {
-                Debug.Log("Falta la llave de salida final");
+                objectivePanel.Show("Encuentra la llave de la puerta de escape");
             }
         }
        

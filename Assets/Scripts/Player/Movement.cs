@@ -11,9 +11,15 @@ public class Movement : MonoBehaviour
 
     [Header("Footsteps")]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip[] footstep;
-    private float distance  = 2f;
-    private float counter;
+    [SerializeField] private AudioClip footstep;
+    [SerializeField] private float stepDistance = 2f;
+    [SerializeField] private float minTimeBetweenSteps = 0.25f;
+    [SerializeField] private float pitchVariation = 0.05f;
+
+    private Vector3 lastPosition;
+    private float distanceTraveled;
+    private float lastStepTime;
+    private bool wasMoving;
 
     private Rigidbody rb;
     private Vector2 movementEntry;
@@ -37,6 +43,8 @@ public class Movement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        lastPosition = transform.position;
     }
 
     private void OnEnable() => controls.Enable();
@@ -44,7 +52,6 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-
         RotarCamara();
     }
 
@@ -67,34 +74,55 @@ public class Movement : MonoBehaviour
         float mouseY = lookEntry.y * sensitivity;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); 
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
- 
         transform.Rotate(Vector3.up * mouseX);
     }
 
-
     private void Footsteps()
     {
-        if (movementEntry.magnitude > 0.1f)
-        {
-            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            counter += horizontalVelocity.magnitude * Time.fixedDeltaTime;
+        Vector3 currentPosition = transform.position;
+        currentPosition.y = lastPosition.y;
 
-            if (counter >= distance)
+        bool isMoving = movementEntry.magnitude > 0.1f;
+
+        if (isMoving)
+        {
+            // Primer paso al arrancar desde quieto
+            if (!wasMoving)
             {
-                PlayFootstepSound();
-                counter = 0f;
+                PlayStep();
+                distanceTraveled = 0f;
             }
-        }  
+            else
+            {
+                distanceTraveled += Vector3.Distance(currentPosition, lastPosition);
+
+                if (distanceTraveled >= stepDistance)
+                {
+                    PlayStep();
+                    distanceTraveled = 0f;
+                }
+            }
+        }
+        else
+        {
+            distanceTraveled = 0f;
+        }
+
+        wasMoving = isMoving;
+        lastPosition = transform.position;
     }
 
-
-   private void PlayFootstepSound()
+    private void PlayStep()
     {
-       int footstepPick = UnityEngine.Random.Range(0, footstep.Length);
-        audioSource.PlayOneShot(footstep[footstepPick]);
+        // Debounce: evita que dos pasos suenen demasiado juntos
+        if (Time.time - lastStepTime < minTimeBetweenSteps) return;
+
+        audioSource.pitch = 1f + UnityEngine.Random.Range(-pitchVariation, pitchVariation);
+        audioSource.PlayOneShot(footstep);
+        lastStepTime = Time.time;
     }
 }
