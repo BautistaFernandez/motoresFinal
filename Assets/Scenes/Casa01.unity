@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 96845338}
   m_Layer: 0
   m_Name: FinalDoor2
-  m_TagString: Untagged
+  m_TagString: FinalDoor2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -857,7 +857,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 0}
   objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!65 &96845340
@@ -1193,7 +1192,6 @@ MonoBehaviour:
   audioSource: {fileID: 189700595}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &189700591
@@ -1461,9 +1459,8 @@ MonoBehaviour:
   - ME ESTOY VOLVIENDO LOCO
   - "\xA1YA CASI! \xA1CORR\xC9 O MOR\xCD, CORR\xC9 O MOR\xCD!"
   - MORIR, ES VIVIR. MORIR, ES VIVIR
-  tiempoInicialPensamiento: 1
-  tiempoEntrePensamientos: 10
-  duracionEnPantalla: 4
+  tiempoEntrePensamientos: 13
+  duracionEnPantalla: 5
 --- !u!64 &193448170
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1718,7 +1715,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &239851024
@@ -1939,7 +1935,7 @@ MonoBehaviour:
   demonDoll: {fileID: 1512304181}
   risaAudio: {fileID: 1262350651}
   fondoAudio: {fileID: 159391069}
-  tiempoRestante: 120
+  tiempoRestante: 180
   textoReloj: {fileID: 1461667754}
   mensajeAlerta: {fileID: 1463574857}
 --- !u!114 &275976067
@@ -2435,7 +2431,6 @@ MonoBehaviour:
   audioSource: {fileID: 2060705177}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!64 &348720818
@@ -3272,7 +3267,6 @@ MonoBehaviour:
   audioSource: {fileID: 548014040}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!82 &548014040
@@ -3926,7 +3920,6 @@ MonoBehaviour:
   audioSource: {fileID: 592690828}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &592690824
@@ -5890,7 +5883,6 @@ MonoBehaviour:
   audioSource: {fileID: 910132816}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &910132812
@@ -6373,7 +6365,6 @@ MonoBehaviour:
   audioSource: {fileID: 958732826}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &958732822
@@ -8210,7 +8201,6 @@ MonoBehaviour:
   audioSource: {fileID: 1295393313}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1295393309
@@ -8486,7 +8476,6 @@ MonoBehaviour:
   audioSource: {fileID: 1296726776}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1296726772
@@ -8752,7 +8741,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!65 &1347837593
@@ -8815,7 +8803,7 @@ GameObject:
   - component: {fileID: 1354391665}
   m_Layer: 0
   m_Name: Door (1)
-  m_TagString: FinalDoor2
+  m_TagString: FinalDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8873,7 +8861,6 @@ MonoBehaviour:
   audioSource: {fileID: 1354391665}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!64 &1354391662
@@ -9095,7 +9082,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
-  pressEText: {fileID: 0}
   objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!1001 &1393168111
@@ -11950,7 +11936,6 @@ MonoBehaviour:
   audioSource: {fileID: 1473216545}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1473216544
@@ -12567,7 +12552,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 0}
   tieneLlave: 0
 --- !u!1 &1575773950
@@ -12874,7 +12858,6 @@ MonoBehaviour:
   audioSource: {fileID: 1636593954}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1636593950
@@ -13695,7 +13678,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!64 &1795215809
@@ -14452,7 +14434,6 @@ MonoBehaviour:
   audioSource: {fileID: 1941915831}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1941915827
@@ -14656,7 +14637,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
-  pressEText: {fileID: 1461620209}
   objectivePanel: {fileID: 1226079673}
   tieneLlave: 0
 --- !u!65 &1987334376

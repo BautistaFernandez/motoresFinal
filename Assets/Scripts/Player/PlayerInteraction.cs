@@ -1,117 +1,71 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [Header("Settings")]
     [SerializeField] private Transform cam;
-    [SerializeField] private float interactionDistance = 8f;
-
-    [Header("UI")]
+    [SerializeField] private float interactionDistance = 4f;
     [SerializeField] private TextMeshProUGUI promptText;
 
-    [Header("Objective UI")]
-    [SerializeField] private ObjectivePanel objectivePanel;
-
-    private GraspableObject actualObjectInHand;
-    private PlayerControls control;
-    private bool tryInteract = false;
-    private Collider playerCollider;
-
-    private void Awake()
+    void Update()
     {
-        control = new PlayerControls();
-        control.Player.Interaction.performed += context => tryInteract = true;
-        playerCollider = GetComponent<Collider>();
-    }
-
-    private void OnEnable() => control.Enable();
-    private void OnDisable() => control.Disable();
-
-    private void Update()
-    {
-        if (promptText == null || cam == null) return;
         UpdateUI();
-        if (tryInteract) { InteractionTry(); tryInteract = false; }
+        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            InteractionTry();
+        }
     }
 
     private void UpdateUI()
     {
-        if (actualObjectInHand != null) { promptText.gameObject.SetActive(false); return; }
-
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            if (hit.collider.GetComponentInParent<DemonDoll>())
-            {
-                promptText.text = "Presiona [E] para activar muñeca";
-                promptText.gameObject.SetActive(true);
-                return;
-            }
-            if (hit.collider.GetComponentInParent<LlaveRecogible>())
-            {
-                promptText.text = "Presiona [E] para agarrar llave";
-                promptText.gameObject.SetActive(true);
-                return;
-            }
-            if (hit.collider.GetComponentInParent<NotaInteractuable>())
-            {
-                promptText.text = "Presiona [E] para leer nota";
-                promptText.gameObject.SetActive(true);
-                return;
-            }
-            if (hit.collider.GetComponentInParent<GraspableObject>())
-            {
-                promptText.text = "Presiona [E] para agarrar";
-                promptText.gameObject.SetActive(true);
-                return;
-            }
+            if (hit.collider.GetComponent<NotaInteractuable>()) { promptText.text = "[E] Leer Nota"; promptText.gameObject.SetActive(true); return; }
+            if (hit.collider.GetComponent<LlaveRecogible>()) { promptText.text = "[E] Agarrar Llave"; promptText.gameObject.SetActive(true); return; }
+
+            ControladorPuerta puerta = hit.collider.GetComponentInParent<ControladorPuerta>();
+            if (puerta != null) { promptText.text = "[E] Puerta"; promptText.gameObject.SetActive(true); return; }
+
+            if (hit.collider.GetComponent<DemonDoll>()) { promptText.text = "[E] Tocar Muñeca"; promptText.gameObject.SetActive(true); return; }
+
+            promptText.gameObject.SetActive(false);
         }
-        promptText.gameObject.SetActive(false);
+        else promptText.gameObject.SetActive(false);
     }
 
     private void InteractionTry()
     {
-        if (actualObjectInHand != null)
-        {
-            actualObjectInHand.Drop(playerCollider);
-            actualObjectInHand = null;
-            return;
-        }
-
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            var doll = hit.collider.GetComponentInParent<DemonDoll>();
-            if (doll != null)
-            {
-                var manager = Object.FindFirstObjectByType<DollEventManager>();
-                if (manager != null) manager.IniciarContador();
-                objectivePanel.Show("Escapa de la casa");
-                return;
-            }
-
-            var llave = hit.collider.GetComponentInParent<LlaveRecogible>();
+          
+            LlaveRecogible llave = hit.collider.GetComponent<LlaveRecogible>();
             if (llave != null)
             {
                 llave.Recoger();
+                return; 
+            }
+
+            
+            ControladorPuerta puerta = hit.collider.GetComponentInParent<ControladorPuerta>();
+            if (puerta != null)
+            {
+                puerta.IntentarAbrir();
                 return;
             }
 
-            var nota = hit.collider.GetComponentInParent<NotaInteractuable>();
-            if (nota != null)
+           
+            if (hit.collider.GetComponent<DemonDoll>())
             {
-                nota.Interactuar();
+                var manager = Object.FindFirstObjectByType<DollEventManager>();
+                if (manager != null) manager.IniciarContador();
                 return;
             }
 
-            var grasp = hit.collider.GetComponentInParent<GraspableObject>();
-            if (grasp != null)
-            {
-                grasp.Take(cam, playerCollider);
-                actualObjectInHand = grasp;
-            }
+          
+            if (hit.collider.GetComponent<NotaInteractuable>()) hit.collider.GetComponent<NotaInteractuable>().Interactuar();
         }
     }
 }

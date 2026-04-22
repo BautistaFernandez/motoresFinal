@@ -6,9 +6,8 @@ public class PensamientosManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textoPensamiento;
     [SerializeField] private string[] listaPensamientos;
-    [SerializeField] private float tiempoInicialPensamiento = 1f;
-    [SerializeField] private float tiempoEntrePensamientos = 15f;
-    [SerializeField] private float duracionEnPantalla = 4f;
+    [SerializeField] private float tiempoEntrePensamientos = 15f; 
+    [SerializeField] private float duracionEnPantalla = 6f;
 
     void Start()
     {
@@ -21,7 +20,7 @@ public class PensamientosManager : MonoBehaviour
         int indice = 0;
         while (true)
         {
-            yield return new WaitForSeconds(tiempoInicialPensamiento);
+            yield return new WaitForSeconds(tiempoEntrePensamientos);
 
             if (listaPensamientos.Length > 0 && textoPensamiento != null)
             {
@@ -31,7 +30,6 @@ public class PensamientosManager : MonoBehaviour
                 textoPensamiento.gameObject.SetActive(false);
                 indice = (indice + 1) % listaPensamientos.Length;
             }
-            yield return new WaitForSeconds(tiempoEntrePensamientos);
         }
     }
 }

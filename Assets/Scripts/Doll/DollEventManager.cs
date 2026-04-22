@@ -11,7 +11,7 @@ public class DollEventManager : MonoBehaviour
 
     [Header("Sonidos")]
     [SerializeField] private AudioSource risaAudio;
-    [SerializeField] private AudioSource fondoAudio; 
+    [SerializeField] private AudioSource fondoAudio;
 
     [Header("Temporizador")]
     public float tiempoRestante = 240f;
@@ -24,7 +24,6 @@ public class DollEventManager : MonoBehaviour
 
     void Start()
     {
-       
         if (demonDoll != null) demonDoll.gameObject.SetActive(false);
         if (mensajeAlerta != null) mensajeAlerta.gameObject.SetActive(false);
         if (textoReloj != null) textoReloj.gameObject.SetActive(false);
@@ -39,9 +38,7 @@ public class DollEventManager : MonoBehaviour
         if (demonDoll != null)
         {
             demonDoll.gameObject.SetActive(true);
-
             if (fondoAudio != null) fondoAudio.Play();
-
             StartCoroutine(BucleRisa());
         }
     }
@@ -51,8 +48,6 @@ public class DollEventManager : MonoBehaviour
         while (true)
         {
             if (risaAudio != null) risaAudio.Play();
-
-            
             yield return new WaitForSecondsRealtime(10f);
         }
     }
@@ -75,7 +70,7 @@ public class DollEventManager : MonoBehaviour
     {
         if (mensajeAlerta != null)
         {
-            mensajeAlerta.text = "     ¡ESCAPA O MUERE! \r\nBusca las pistas en la casa";
+            mensajeAlerta.text = "¡ESCAPA O MUERE! \nBusca las pistas en la casa";
             mensajeAlerta.gameObject.SetActive(true);
             yield return new WaitForSecondsRealtime(4f);
             mensajeAlerta.gameObject.SetActive(false);
@@ -88,12 +83,14 @@ public class DollEventManager : MonoBehaviour
         {
             if (tiempoRestante > 0)
             {
-               
                 tiempoRestante -= Time.unscaledDeltaTime;
                 ActualizarReloj();
             }
             else
             {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 1f; 
                 SceneManager.LoadScene(escenaGameOver);
             }
         }

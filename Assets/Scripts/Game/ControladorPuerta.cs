@@ -1,30 +1,20 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ControladorPuerta : MonoBehaviour
 {
-    [Header("Configuración de Movimiento")]
+    [Header("Configuración")]
     [SerializeField] private float anguloApertura = 90f;
     [SerializeField] private float velocidad = 3f;
-
-    [Header("Sonidos")]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip openDoor;
-    [SerializeField] private AudioClip closeDoor;
-
-    [Header("UI")]
-    [SerializeField] private GameObject pressEText;
-
-    [Header("Objective UI")]
+    [SerializeField] private AudioClip openDoor, closeDoor;
     [SerializeField] private ObjectivePanel objectivePanel;
 
     [Header("Estado")]
     public bool tieneLlave = false;
     private bool estaAbierta = false;
-    private bool jugadorCerca = false;
-    private Quaternion rotacionCerrada;
-    private Quaternion rotacionAbierta;
+    private Quaternion rotacionCerrada, rotacionAbierta;
 
     void Start()
     {
@@ -34,42 +24,31 @@ public class ControladorPuerta : MonoBehaviour
 
     void Update()
     {
-        if (jugadorCerca && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            IntentarAbrir();
-        }
-
+       
         Quaternion objetivo = estaAbierta ? rotacionAbierta : rotacionCerrada;
         transform.localRotation = Quaternion.Slerp(transform.localRotation, objetivo, Time.deltaTime * velocidad);
     }
 
-    private void IntentarAbrir()
+   
+    public void IntentarAbrir()
     {
-       
         if (CompareTag("FinalDoor"))
         {
             if (tieneLlave) Accionar();
-            
-            else objectivePanel.Show("Encuentra la llave del garage");
+            else if (objectivePanel != null) objectivePanel.Show("Encuentra la llave del garage");
         }
-        
         else if (CompareTag("FinalDoor2"))
         {
             if (tieneLlave)
             {
                 Accionar();
-               
                 if (estaAbierta) Invoke("IrAVictoria", 1.5f);
             }
-            else
-            {
-                objectivePanel.Show("Encuentra la llave de la puerta de escape");
-            }
+            else if (objectivePanel != null) objectivePanel.Show("Busca la llave de escape");
         }
-       
         else
         {
-            Accionar();
+            Accionar(); 
         }
     }
 
@@ -81,29 +60,8 @@ public class ControladorPuerta : MonoBehaviour
 
     private void IrAVictoria()
     {
-    
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Time.timeScale = 1f; 
-
         SceneManager.LoadScene("WinScene");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            jugadorCerca = true;
-            if (pressEText != null) pressEText.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            jugadorCerca = false;
-            if (pressEText != null) pressEText.SetActive(false);
-        }
     }
 }
