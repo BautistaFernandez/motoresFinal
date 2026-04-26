@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 96845338}
   m_Layer: 0
   m_Name: FinalDoor2
-  m_TagString: FinalDoor2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed986c1ee75f17f4795746f9f0d6f0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorPuerta
-  anguloApertura: 90
+  anguloApertura: 0
   velocidad: 3
   audioSource: {fileID: 0}
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
@@ -8803,7 +8803,7 @@ GameObject:
   - component: {fileID: 1354391665}
   m_Layer: 0
   m_Name: Door (1)
-  m_TagString: FinalDoor
+  m_TagString: FinalDoor2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
