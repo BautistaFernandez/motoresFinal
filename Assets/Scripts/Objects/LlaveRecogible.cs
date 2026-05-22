@@ -3,31 +3,19 @@ using UnityEngine;
 public class LlaveRecogible : MonoBehaviour
 {
     [Header("Configuración")]
-    [Tooltip("Escribí el Tag de la puerta que abre (FinalDoor o FinalDoor2)")]
-    public string tagPuertaAabrir;
+    [SerializeField] private KeyLock lockAabrir;
 
     [Header("Objective UI")]
     [SerializeField] private ObjectivePanel objectivePanel;
+    [TextArea]
+    [SerializeField] private string mensajeObjetivo;
 
     public void Recoger()
     {
-        GameObject[] puertas = GameObject.FindGameObjectsWithTag(tagPuertaAabrir);
-
-        foreach (GameObject obj in puertas)
-        {
-            var scriptPuerta = obj.GetComponent<ControladorPuerta>();
-            if (scriptPuerta != null) scriptPuerta.tieneLlave = true;
-        }
-
-        if (tagPuertaAabrir == "FinalDoor")
-        {
-            objectivePanel.Show("Llave del garage encontrada. Descifra el mensaje de la carta");
-        }
-        else if (tagPuertaAabrir == "FinalDoor2")
-        {
-            objectivePanel.Show("Huye de la casa");
-        }
+        if (lockAabrir != null) lockAabrir.Unlock();
+        if (objectivePanel != null) objectivePanel.Show(mensajeObjetivo);
 
         Destroy(gameObject);
     }
 }
+
