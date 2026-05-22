@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,10 +7,11 @@ public class InspectorManager : MonoBehaviour
     public static InspectorManager Instance;
 
     [Header("Referencias")]
-    [SerializeField] private Camera inspectionCamera;
-    [SerializeField] private Transform pivotInspeccion;
-    [SerializeField] private MonoBehaviour playerMovementScript;
-    [SerializeField] private MonoBehaviour playerInteractionScript;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private Movement playerMovementScript;
+    [SerializeField] private PlayerInteraction playerInteractionScript;
+    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private GameObject inspectionBackground;
 
     [Header("Configuración")]
     [SerializeField] private float velocidadRotacion = 300f;
@@ -17,13 +19,14 @@ public class InspectorManager : MonoBehaviour
     private ObjetoInspeccionable objetoActual;
     private Vector3 posicionOriginalObjeto;
     private Quaternion rotacionOriginalObjeto;
+    private Vector3 escalaOriginalObjeto;
     private Transform padreOriginal;
     private bool inspeccionando = false;
 
     private void Awake()
     {
         Instance = this;
-        if (inspectionCamera != null) inspectionCamera.gameObject.SetActive(false);
+        if (inspectionBackground != null) inspectionBackground.SetActive(false);
     }
 
     private void Update()
@@ -40,23 +43,32 @@ public class InspectorManager : MonoBehaviour
 
     public void IniciarInspeccion(ObjetoInspeccionable objeto)
     {
+        if (inspeccionando) return;
+
         objetoActual = objeto;
         inspeccionando = true;
 
-        // Guardar estado original
         posicionOriginalObjeto = objeto.transform.position;
         rotacionOriginalObjeto = objeto.transform.rotation;
+        escalaOriginalObjeto = objeto.transform.localScale;
         padreOriginal = objeto.transform.parent;
 
-        // Mover objeto al pivot adelante de la cámara
-        objeto.transform.SetParent(pivotInspeccion);
+        Vector3 escalaGlobal = objeto.transform.lossyScale;
+
+        objeto.transform.SetParent(playerCamera.transform, false);
         objeto.transform.localPosition = Vector3.forward * objeto.GetDistanciaCamara();
         objeto.transform.localRotation = Quaternion.Euler(objeto.GetRotacionInicial());
 
-        // Activar cámara de inspección
-        if (inspectionCamera != null) inspectionCamera.gameObject.SetActive(true);
+        Vector3 escalaPadre = playerCamera.transform.lossyScale;
+        objeto.transform.localScale = new Vector3(
+            escalaGlobal.x / escalaPadre.x,
+            escalaGlobal.y / escalaPadre.y,
+            escalaGlobal.z / escalaPadre.z
+        );
 
-        // Bloquear movimiento del player y mostrar cursor
+        if (inspectionBackground != null) inspectionBackground.SetActive(true);
+        if (promptText != null) promptText.gameObject.SetActive(false);
+
         if (playerMovementScript != null) playerMovementScript.enabled = false;
         if (playerInteractionScript != null) playerInteractionScript.enabled = false;
         Cursor.lockState = CursorLockMode.None;
@@ -67,19 +79,17 @@ public class InspectorManager : MonoBehaviour
     {
         if (objetoActual == null) return;
 
-        // Restaurar el objeto a su lugar original
         objetoActual.transform.SetParent(padreOriginal);
         objetoActual.transform.position = posicionOriginalObjeto;
         objetoActual.transform.rotation = rotacionOriginalObjeto;
+        objetoActual.transform.localScale = escalaOriginalObjeto;
 
         objetoActual.TerminarInspeccion();
         objetoActual = null;
         inspeccionando = false;
 
-        // Apagar cámara de inspección
-        if (inspectionCamera != null) inspectionCamera.gameObject.SetActive(false);
+        if (inspectionBackground != null) inspectionBackground.SetActive(false);
 
-        // Reactivar movimiento del player y ocultar cursor
         if (playerMovementScript != null) playerMovementScript.enabled = true;
         if (playerInteractionScript != null) playerInteractionScript.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -97,7 +107,6 @@ public class InspectorManager : MonoBehaviour
             float rotacionY = -delta.x * velocidadRotacion * Time.deltaTime * 0.01f;
             float rotacionX = delta.y * velocidadRotacion * Time.deltaTime * 0.01f;
 
-            // Rotar en espacio mundial para que sea intuitivo (no se acumulan rotaciones raras)
             objetoActual.transform.Rotate(Vector3.up, rotacionY, Space.World);
             objetoActual.transform.Rotate(Vector3.right, rotacionX, Space.World);
         }
