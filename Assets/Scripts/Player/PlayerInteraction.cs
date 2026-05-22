@@ -30,6 +30,8 @@ public class PlayerInteraction : MonoBehaviour
 
             if (hit.collider.GetComponent<DemonDoll>()) { promptText.text = "[E] Tocar Muñeca"; promptText.gameObject.SetActive(true); return; }
 
+            if (hit.collider.GetComponent<ObjetoInspeccionable>()) { promptText.text = "[E] Inspeccionar"; promptText.gameObject.SetActive(true); return; }
+
             promptText.gameObject.SetActive(false);
         }
         else promptText.gameObject.SetActive(false);
@@ -64,8 +66,17 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
-          
-            if (hit.collider.GetComponent<NotaInteractuable>()) hit.collider.GetComponent<NotaInteractuable>().Interactuar();
+
+            NotaInteractuable nota = hit.collider.GetComponent<NotaInteractuable>();
+            if (nota != null) nota.Interactuar();
+
+
+            ObjetoInspeccionable inspeccionable = hit.collider.GetComponent<ObjetoInspeccionable>();
+            if (inspeccionable != null)
+            {
+                inspeccionable.Inspeccionar();
+                return;
+            }
         }
     }
 }

@@ -616,7 +616,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 0}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &96845340
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1007,7 +1009,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &189700591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1611,7 +1615,9 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &239851024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2327,7 +2333,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!64 &348720818
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2957,6 +2965,144 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4632345630377895189, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+--- !u!1 &517206833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517206834}
+  - component: {fileID: 517206835}
+  - component: {fileID: 517206837}
+  - component: {fileID: 517206836}
+  m_Layer: 0
+  m_Name: InspectionCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &517206834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517206833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0036585066, y: -0.9946687, z: 0.08115087, w: 0.06352453}
+  m_LocalPosition: {x: 181.80353, y: 3.7494268, z: -23.463556}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1545746536}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &517206835
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517206833}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &517206836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517206833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
+--- !u!81 &517206837
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517206833}
+  m_Enabled: 1
 --- !u!1 &525118878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,7 +3378,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!82 &548014040
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3724,8 +3872,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b2e129d21225c46bbe4b66960a174c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LlaveRecogible
-  tagPuertaAabrir: FinalDoor2
+  lockAabrir: {fileID: 1354391666}
   objectivePanel: {fileID: 1226079673}
+  mensajeObjetivo: Huye de la casa
 --- !u!65 &576536973
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3885,7 +4034,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &592690824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5688,6 +5839,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: House Good
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -1584556318782301597, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
@@ -6543,7 +6698,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &910132812
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7173,7 +7330,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &958732822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7750,6 +7909,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4580332590316147472, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
+--- !u!114 &1052103886 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2350481757991014790, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+  m_PrefabInstance: {fileID: 549942203}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ed508e78c00094eb588e9733b77d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement
 --- !u!64 &1059254592
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8865,8 +9035,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b2e129d21225c46bbe4b66960a174c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LlaveRecogible
-  tagPuertaAabrir: FinalDoor
+  lockAabrir: {fileID: 0}
   objectivePanel: {fileID: 1226079673}
+  mensajeObjetivo: 
 --- !u!65 &1271088848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8965,7 +9136,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1295393309
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9240,7 +9413,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1296726772
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9505,7 +9680,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 0}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1347837593
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9564,9 +9741,10 @@ GameObject:
   - component: {fileID: 1354391661}
   - component: {fileID: 1354391660}
   - component: {fileID: 1354391665}
+  - component: {fileID: 1354391666}
   m_Layer: 0
   m_Name: Door (1)
-  m_TagString: FinalDoor2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9625,7 +9803,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 1
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!64 &1354391662
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9802,6 +9982,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1354391666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354391658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4932616d7939749a4e59dcb5c341e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeyLock
+  tieneLlave: 0
+  lockMessage: "Est\xE1 cerrada. Busca la llave en el garage"
 --- !u!1 &1362273580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 953943054777410456, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
@@ -9846,7 +10040,9 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   objectivePanel: {fileID: 0}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!1001 &1369907886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12372,6 +12568,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -909840902957232681, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
   m_PrefabInstance: {fileID: 1393168111}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1433810656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1433810658}
+  - component: {fileID: 1433810657}
+  m_Layer: 0
+  m_Name: InspectorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1433810657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433810656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530447a26378f4b469294501c32e4e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectorManager
+  inspectionCamera: {fileID: 517206835}
+  pivotInspeccion: {fileID: 1545746536}
+  playerMovementScript: {fileID: 1052103886}
+  playerInteractionScript: {fileID: 1052103886}
+  velocidadRotacion: 300
+--- !u!4 &1433810658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433810656}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 186.20355, y: 3.15553, z: -25.5576}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461620209
 GameObject:
   m_ObjectHideFlags: 0
@@ -12917,7 +13162,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1473216544
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13514,6 +13761,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -5389716852881919233, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
   m_PrefabInstance: {fileID: 1393168111}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1545746535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545746536}
+  m_Layer: 0
+  m_Name: PivotInspeccion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1545746536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545746535}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 517206834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1564547884
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13602,7 +13880,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: 9f2cd26763d199d4696dcae6bbbc638b, type: 3}
   objectivePanel: {fileID: 0}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!1 &1575773950
 GameObject:
   m_ObjectHideFlags: 0
@@ -13908,7 +14188,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1636593950
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14601,7 +14883,9 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!64 &1795215809
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15146,6 +15430,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2680068538264080173, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
   m_PrefabInstance: {fileID: 1393168111}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1880987338 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4889616640156812954, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
+  m_PrefabInstance: {fileID: 1967935284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1880987340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880987338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8244b3aed7d24b043a14b668014f51cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FotoInspeccionable
+  distanciaCamara: 0.5
+  rotacionInicial: {x: 0, y: 0, z: 0}
+  objectivePanel: {fileID: 1226079673}
+  mensajePista: "Esto es en mi mesa? C\xF3mo entraron?"
+--- !u!65 &1880987341
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880987338}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2645057, y: 1.281337, z: 0.5965827}
+  m_Center: {x: -0.015871478, y: 0.005311473, z: -0.20170811}
 --- !u!1001 &1909339996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15434,7 +15760,9 @@ MonoBehaviour:
   openDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   closeDoor: {fileID: 8300000, guid: ef169b22e791106459d530c0e65bac6c, type: 3}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1941915827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15619,7 +15947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2025364947237799638, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 171.608
+      value: 171.605
       objectReference: {fileID: 0}
     - target: {fileID: 2025364947237799638, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15627,7 +15955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2025364947237799638, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.829
+      value: -15.863
       objectReference: {fileID: 0}
     - target: {fileID: 2025364947237799638, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15664,7 +15992,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4889616640156812954, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880987340}
+    - targetCorrespondingSourceObject: {fileID: 4889616640156812954, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1880987341}
   m_SourcePrefab: {fileID: 100100000, guid: d9fd7f57743e4754b9782a2da630b493, type: 3}
 --- !u!1 &1972559392
 GameObject:
@@ -15833,7 +16167,9 @@ MonoBehaviour:
   openDoor: {fileID: 0}
   closeDoor: {fileID: 0}
   objectivePanel: {fileID: 1226079673}
-  tieneLlave: 0
+  esPuertaDeEscape: 0
+  escenaVictoria: WinScene
+  delayVictoria: 1.5
 --- !u!65 &1987334376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16905,3 +17241,5 @@ SceneRoots:
   - {fileID: 774459767}
   - {fileID: 357792630}
   - {fileID: 947508411}
+  - {fileID: 517206834}
+  - {fileID: 1433810658}
