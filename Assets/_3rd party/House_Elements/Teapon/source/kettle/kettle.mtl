@@ -1,0 +1,15 @@
+# Blender MTL File: 'kettle.blend'
+# Material Count: 1
+
+newmtl Material.002
+Ns 369.211460
+Ka 1.000000 1.000000 1.000000
+Kd 0.269737 0.269737 0.269737
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd kettle_Material.001_BaseColor.png
+map_Ns kettle_Material.001_Roughness.png
+refl kettle_Material.001_Metallic.png
