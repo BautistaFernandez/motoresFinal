@@ -8,7 +8,7 @@ using UnityEngine;
 // Si el código se ingresa correctamente, Door.UnlockByCode() termina el loop,
 // y LevelManager teletransporta al player a playerOutside antes del reset.
 // ─────────────────────────────────────────────────────────────────────────────
-public class KeypadFocus : InteractableObject
+public class KeypadFocus : MonoBehaviour /*InteractableObject */
 {
     [Header("Cámara")]
     [SerializeField] private Transform cam;
@@ -23,7 +23,7 @@ public class KeypadFocus : InteractableObject
     [SerializeField] private MonoBehaviour keypadInteraction;
 
     [Header("Pool de hints")]
-    [SerializeField] private HintPool hintPool;
+    // [SerializeField] private HintPool hintPool;
 
     private Vector3 originalCamLocalPos;
     private Quaternion originalCamLocalRot;
@@ -38,27 +38,27 @@ public class KeypadFocus : InteractableObject
         if (keypadInteraction != null) keypadInteraction.enabled = false;
     }
 
-    protected override void Update()
+    /*protected override void Update()
     {
         base.Update();
 
         if (focused && Input.GetKeyDown(KeyCode.Escape) && !transitioning)
             StartCoroutine(ExitFocus());
-    }
+    }*/
 
-    protected override void OnInteract()
+    /*protected override void OnInteract()
     {
         if (focused || transitioning) return;
         StartCoroutine(EnterFocus());
-    }
+    }*/
 
     private IEnumerator EnterFocus()
     {
         transitioning = true;
-        HideUI();
+        //HideUI();
 
 
-        if (!firstLook) hintPool.ShowMessage("Cuando puse sistema de seguridad? Necesito un código de 3 dígitos para poder irme", 6f);
+        //if (!firstLook) hintPool.ShowMessage("Cuando puse sistema de seguridad? Necesito un código de 3 dígitos para poder irme", 6f);
         firstLook = true;
 
         originalCamParent = cam.parent;
