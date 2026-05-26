@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private Transform cam;
-    [SerializeField] private float interactionDistance = 4f;
+    [SerializeField] private float interactionDistance = 2f;
     [SerializeField] private TextMeshProUGUI promptText;
 
     void Update()
