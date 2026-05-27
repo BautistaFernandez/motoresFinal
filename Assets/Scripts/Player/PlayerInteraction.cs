@@ -32,6 +32,8 @@ public class PlayerInteraction : MonoBehaviour
 
             if (hit.collider.GetComponent<ObjetoInspeccionable>()) { promptText.text = "[E] Inspeccionar"; promptText.gameObject.SetActive(true); return; }
 
+            if (hit.collider.GetComponent<Flashlight>()) { promptText.text = "[E] Agarrar Linterna"; promptText.gameObject.SetActive(true); return; }
+
             promptText.gameObject.SetActive(false);
         }
         else promptText.gameObject.SetActive(false);
@@ -63,6 +65,14 @@ public class PlayerInteraction : MonoBehaviour
             {
                 var manager = Object.FindFirstObjectByType<DollEventManager>();
                 if (manager != null) manager.IniciarContador();
+                return;
+            }
+
+
+            Flashlight linterna = hit.collider.GetComponent<Flashlight>();
+            if (linterna != null)
+            {
+                linterna.Recoger();
                 return;
             }
 

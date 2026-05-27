@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Flashlight : Pickable
+public class Flashlight : MonoBehaviour
 {
     [Header("Luz de la linterna")]
     [SerializeField] private Light flashlightLight;
 
-    [Header("Posición al agarrarla (hijo de la cámara)")]
+    [Header("Posición al agarrarla")]
     [SerializeField] private Transform holderOnPickup;
 
     [Header("Audio")]
@@ -23,7 +24,7 @@ public class Flashlight : Pickable
     public bool IsUVActive => picked && turnedOn && currentMode.IsUVMode;
     public Transform LightTransform => flashlightLight != null ? flashlightLight.transform : null;
 
-    // Evento que disparan los suscriptores (UI, tutoriales, etc.) al recoger la linterna.
+    // Evento que disparan los suscriptores al recoger la linterna.
     public event Action OnPickedUp;
 
     private void Awake()
@@ -38,29 +39,28 @@ public class Flashlight : Pickable
 
     private void Update()
     {
-        if (!picked) return;
+        if (!picked || Keyboard.current == null) return;
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Keyboard.current.fKey.wasPressedThisFrame)
+        {
             ToggleLight();
+        }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
+        {
             SwitchMode();
+        }
     }
 
-    public override string GetPrompt() => "Press [E] to take flashlight";
-
-    public override void OnPickup()
+    public void Recoger()
     {
         if (picked) return;
 
         picked = true;
 
-        if (TryGetComponent(out Rigidbody rb))
-            rb.isKinematic = true;
-        if (TryGetComponent(out Collider col))
-            col.enabled = false;
+        if (TryGetComponent(out Rigidbody rb)) rb.isKinematic = true;
+        if (TryGetComponent(out Collider col)) col.enabled = false;
 
-        // Anclar a la cámara.
         if (holderOnPickup != null)
         {
             transform.SetParent(holderOnPickup);
@@ -74,13 +74,11 @@ public class Flashlight : Pickable
     private void ToggleLight()
     {
         turnedOn = !turnedOn;
-        if (flashlightLight != null)
-            flashlightLight.enabled = turnedOn;
+        if (flashlightLight != null) flashlightLight.enabled = turnedOn;
 
-        if (turnedOn)
-            currentMode.Apply(flashlightLight);
+        if (turnedOn) currentMode.Apply(flashlightLight);
 
-        toggleSound?.Play();
+        if (toggleSound != null) toggleSound.Play();
     }
 
     private void SwitchMode()
@@ -90,6 +88,6 @@ public class Flashlight : Pickable
         currentMode = currentMode.IsUVMode ? normalMode : uvMode;
         currentMode.Apply(flashlightLight);
 
-        toggleSound?.Play();
+        if (toggleSound != null) toggleSound.Play();
     }
 }

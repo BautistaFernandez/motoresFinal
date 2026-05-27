@@ -1,17 +1,19 @@
 using UnityEngine;
 
-// ── PATRÓN OBSERVER ─────────────────────────────────────────────
 public class FlashlightUIController : MonoBehaviour
 {
     [SerializeField] private Flashlight flashlight;
-    [SerializeField] private GameObject controlsPanel;
+    [SerializeField] private GameObject hintEncender;
+    [SerializeField] private GameObject hintMode;
 
     //[Header("Pool de hints")]
     //[SerializeField] private HintPool hintPool;
 
     private void Start()
     {
-        if (controlsPanel != null) controlsPanel.SetActive(false);
+        if (hintEncender != null) hintEncender.SetActive(false);
+
+        if (hintMode != null) hintMode.SetActive(false);
 
         if (flashlight != null)
             flashlight.OnPickedUp += HandleFlashlightPicked;
@@ -19,16 +21,12 @@ public class FlashlightUIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (flashlight != null)
-            flashlight.OnPickedUp -= HandleFlashlightPicked;
+        if (flashlight != null) flashlight.OnPickedUp -= HandleFlashlightPicked;
     }
 
     private void HandleFlashlightPicked()
     {
-        if (controlsPanel != null)
-        {
-            controlsPanel.SetActive(true);
-            //hintPool.ShowMessage("Parece que está linterna tiene un modo UV. Podré descubrir secretos en las paredes?", 7f);
-        }
+        if (hintEncender != null) hintEncender.SetActive(true);
+        if (hintMode != null) hintMode.SetActive(true);
     }
 }
