@@ -13,6 +13,9 @@ public class Flashlight : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource toggleSound;
 
+    [Header("Rotación al recoger")]
+    [SerializeField] private Vector3 pickupRotation = Vector3.zero;
+
     private ILightMode currentMode;
     private ILightMode normalMode;
     private ILightMode uvMode;
@@ -65,7 +68,7 @@ public class Flashlight : MonoBehaviour
         {
             transform.SetParent(holderOnPickup);
             transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
+            transform.localRotation = Quaternion.Euler(pickupRotation);
         }
 
         OnPickedUp?.Invoke();

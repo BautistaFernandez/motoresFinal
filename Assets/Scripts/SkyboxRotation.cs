@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SkyboxRotation : MonoBehaviour
 {
-    private float speedRotation = 1f;
+    private float speedRotation = 1.2f;
     void Start()
     {
         
