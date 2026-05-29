@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private Transform cam;
-    [SerializeField] private float interactionDistance = 2f;
+    [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private TextMeshProUGUI promptText;
 
     public bool TieneFusible { get; set; } = false;
