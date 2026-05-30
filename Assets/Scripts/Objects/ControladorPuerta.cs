@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class ControladorPuerta : MonoBehaviour
@@ -19,6 +20,9 @@ public class ControladorPuerta : MonoBehaviour
     [SerializeField] private bool esPuertaDeEscape = false;
     [SerializeField] private string escenaVictoria = "WinScene";
     [SerializeField] private float delayVictoria = 1.5f;
+
+    [Header("Eventos")]
+    [SerializeField] private UnityEvent onDoorOpened;
 
     private bool estaAbierta = false;
     private Quaternion rotacionCerrada;
@@ -62,6 +66,8 @@ public class ControladorPuerta : MonoBehaviour
     {
         estaAbierta = !estaAbierta;
         if (audioSource != null) audioSource.PlayOneShot(estaAbierta ? openDoor : closeDoor);
+
+        if (estaAbierta) onDoorOpened?.Invoke();
     }
 
     private void IrAVictoria()

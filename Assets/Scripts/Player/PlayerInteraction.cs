@@ -7,6 +7,13 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Transform cam;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private bool cajaDescubierta = false;
+
+    [Header("Objective UI")]
+    [SerializeField] private ObjectivePanel objectivePanel;
+
+    [Header("Crosshair")]
+    [SerializeField] private CrosshairController crosshair;
 
     public bool TieneFusible { get; set; } = false;
 
@@ -22,53 +29,63 @@ public class PlayerInteraction : MonoBehaviour
     private void UpdateUI()
     {
         RaycastHit hit;
+        bool detectado = false;
+
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-           
-            if (hit.collider.GetComponent<NotaInteractuable>()) { promptText.text = "[E] Leer Nota"; promptText.gameObject.SetActive(true); return; }
-            if (hit.collider.GetComponent<LlaveRecogible>()) { promptText.text = "[E] Agarrar Llave"; promptText.gameObject.SetActive(true); return; }
-
-            ControladorPuerta puerta = hit.collider.GetComponentInParent<ControladorPuerta>();
-            if (puerta != null) { promptText.text = "[E] Puerta"; promptText.gameObject.SetActive(true); return; }
-
-            if (hit.collider.GetComponent<DemonDoll>()) { promptText.text = "[E] Tocar Muñeca"; promptText.gameObject.SetActive(true); return; }
-
-            if (hit.collider.GetComponent<ObjetoInspeccionable>()) { promptText.text = "[E] Inspeccionar"; promptText.gameObject.SetActive(true); return; }
-
-            if (hit.collider.GetComponent<Flashlight>()) { promptText.text = "[E] Agarrar Linterna"; promptText.gameObject.SetActive(true); return; }
-
-            
-            if (hit.collider.GetComponent<FusibleRecogible>())
+            if (hit.collider.GetComponent<NotaInteractuable>())
+            {
+                promptText.text = "[E] Leer Nota";
+                detectado = true;
+            }
+            else if (hit.collider.GetComponent<LlaveRecogible>())
+            {
+                promptText.text = "[E] Agarrar Llave";
+                detectado = true;
+            }
+            else if (hit.collider.GetComponentInParent<ControladorPuerta>() != null)
+            {
+                promptText.text = "[E] Puerta";
+                detectado = true;
+            }
+            else if (hit.collider.GetComponent<DemonDoll>())
+            {
+                promptText.text = "[E] Tocar Muñeca";
+                detectado = true;
+            }
+            else if (hit.collider.GetComponent<ObjetoInspeccionable>())
+            {
+                promptText.text = "[E] Inspeccionar";
+                detectado = true;
+            }
+            else if (hit.collider.GetComponent<Flashlight>())
+            {
+                promptText.text = "[E] Agarrar Linterna";
+                detectado = true;
+            }
+            else if (hit.collider.GetComponent<FusibleRecogible>())
             {
                 promptText.text = "[E] Agarrar Fusible";
-                promptText.gameObject.SetActive(true);
-                return;
+                detectado = true;
             }
-
-            CajaDeLuz caja = hit.collider.GetComponent<CajaDeLuz>();
-            if (caja != null)
+            else if (hit.collider.GetComponentInParent<KeypadFocus>() != null)
             {
-               
-                if (caja.YaSeActivo)
-                {
-                    promptText.gameObject.SetActive(false);
-                    return;
-                }
-
-               
-                if (TieneFusible) promptText.text = "[E] Colocar Fusible y Subir Perilla";
-                else promptText.text = "Falta el Fusible en la caja...";
-
-                promptText.gameObject.SetActive(true);
-                return;
+                promptText.text = "[E] Usar Keypad";
+                detectado = true;
             }
+            else
+            {
+                CajaDeLuz caja = hit.collider.GetComponent<CajaDeLuz>();
+                if (caja != null && !caja.YaSeActivo)
+                {
+                    promptText.text = TieneFusible ? "[E] Colocar Fusible" : "[E] Reactivar panel eléctrico";
+                    detectado = true;
+                }
+            }
+        }
 
-            promptText.gameObject.SetActive(false);
-        }
-        else
-        {
-            promptText.gameObject.SetActive(false);
-        }
+        promptText.gameObject.SetActive(detectado);
+        if (crosshair != null) crosshair.SetHighlight(detectado);
     }
 
     private void InteractionTry()
@@ -124,7 +141,7 @@ public class PlayerInteraction : MonoBehaviour
             if (fusible != null)
             {
                 TieneFusible = true;
-                Destroy(fusible.gameObject);
+                fusible.Recoger();
                 return;
             }
 
@@ -139,6 +156,21 @@ public class PlayerInteraction : MonoBehaviour
                     TieneFusible = false;
                     caja.EncenderEnergia();
                 }
+                else
+                {
+                    if (!cajaDescubierta)
+                    {
+                        cajaDescubierta = true;
+                        objectivePanel.Show("Encuentra el fusible en la cocina");
+                    }
+                }
+                return;
+            }
+
+            KeypadFocus keypadFocus = hit.collider.GetComponent<KeypadFocus>();
+            if (keypadFocus != null)
+            {
+                keypadFocus.Interactuar();
                 return;
             }
         }

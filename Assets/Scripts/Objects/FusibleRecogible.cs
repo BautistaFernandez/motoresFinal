@@ -1,6 +1,14 @@
 using UnityEngine;
 
+
 public class FusibleRecogible : MonoBehaviour
 {
-    // Este script está completo.
+    [Header("Objective UI")]
+    [SerializeField] private ObjectivePanel objectivePanel;
+
+    public void Recoger()
+    {
+        objectivePanel.Show("Coloca el fusible en el panel eléctrico");
+        Destroy(gameObject);
+    }
 }

@@ -1,29 +1,25 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-// ── HERENCIA: InteractableObject ─────────────────────────────────────────────
-// Al presionar E cerca del keypad, la cámara hace un tween a focusPoint.
-// El cursor se libera para poder clickear los botones del keypad.
-// Con ESC la cámara vuelve a su posición original y el cursor se lockea.
-// Si el código se ingresa correctamente, Door.UnlockByCode() termina el loop,
-// y LevelManager teletransporta al player a playerOutside antes del reset.
-// ─────────────────────────────────────────────────────────────────────────────
-public class KeypadFocus : MonoBehaviour /*InteractableObject */
+public class KeypadFocus : MonoBehaviour
 {
     [Header("Cámara")]
     [SerializeField] private Transform cam;
-    [SerializeField] private Transform focusPoint;   // vacío posicionado frente al keypad (mirándolo)
+    [SerializeField] private Transform focusPoint;
     [SerializeField] private float transitionSpeed = 6f;
 
-    [Header("Scripts a pausar mientras se usa el keypad")]
-    [SerializeField] private MonoBehaviour cameraLook;
-    [SerializeField] private MonoBehaviour playerMovement;
+    [Header("Scripts a pausar")]
+    [SerializeField] private Movement playerMovement;
+    [SerializeField] private PlayerInteraction playerInteraction;
 
     [Header("Script de click del keypad a activar")]
-    [SerializeField] private MonoBehaviour keypadInteraction;
+    [SerializeField] private NavKeypad.KeypadInteractionFPV keypadInteraction;
 
-    [Header("Pool de hints")]
-    // [SerializeField] private HintPool hintPool;
+    [Header("Objective UI")]
+    [SerializeField] private ObjectivePanel objectivePanel;
+    [TextArea]
+    [SerializeField] private string mensajePrimerUso = "Encuentra el código para abrir y buscar la llave";
 
     private Vector3 originalCamLocalPos;
     private Quaternion originalCamLocalRot;
@@ -34,39 +30,39 @@ public class KeypadFocus : MonoBehaviour /*InteractableObject */
 
     private void Start()
     {
-        // El KeypadInteractionFPV debe arrancar apagado para que no clickee fuera del keypad.
         if (keypadInteraction != null) keypadInteraction.enabled = false;
     }
 
-    /*protected override void Update()
+    private void Update()
     {
-        base.Update();
-
-        if (focused && Input.GetKeyDown(KeyCode.Escape) && !transitioning)
+        if (focused && !transitioning && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
             StartCoroutine(ExitFocus());
-    }*/
+        }
+    }
 
-    /*protected override void OnInteract()
+    public void Interactuar()
     {
         if (focused || transitioning) return;
         StartCoroutine(EnterFocus());
-    }*/
+    }
 
     private IEnumerator EnterFocus()
     {
         transitioning = true;
-        //HideUI();
 
-
-        //if (!firstLook) hintPool.ShowMessage("Cuando puse sistema de seguridad? Necesito un código de 3 dígitos para poder irme", 6f);
+        if (!firstLook && objectivePanel != null && !string.IsNullOrEmpty(mensajePrimerUso))
+        {
+            objectivePanel.Show(mensajePrimerUso);
+        }
         firstLook = true;
 
         originalCamParent = cam.parent;
         originalCamLocalPos = cam.localPosition;
         originalCamLocalRot = cam.localRotation;
 
-        if (cameraLook != null) cameraLook.enabled = false;
         if (playerMovement != null) playerMovement.enabled = false;
+        if (playerInteraction != null) playerInteraction.enabled = false;
 
         cam.SetParent(null);
 
@@ -83,7 +79,6 @@ public class KeypadFocus : MonoBehaviour /*InteractableObject */
         cam.position = focusPoint.position;
         cam.rotation = focusPoint.rotation;
 
-        // Liberar cursor y activar click en botones
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         if (keypadInteraction != null) keypadInteraction.enabled = true;
@@ -116,36 +111,14 @@ public class KeypadFocus : MonoBehaviour /*InteractableObject */
             yield return null;
         }
 
- 
         cam.SetParent(originalCamParent);
         cam.localPosition = originalCamLocalPos;
         cam.localRotation = originalCamLocalRot;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        if (cameraLook != null) cameraLook.enabled = true;
         if (playerMovement != null) playerMovement.enabled = true;
-
-        focused = false;
-        transitioning = false;
-    }
-
-    public void ForceExitImmediate()
-    {
-        if (!focused && !transitioning) return;
-
-        StopAllCoroutines();
-
-        if (keypadInteraction != null) keypadInteraction.enabled = false;
-
-        cam.SetParent(originalCamParent);
-        cam.localPosition = originalCamLocalPos;
-        cam.localRotation = originalCamLocalRot;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        if (cameraLook != null) cameraLook.enabled = true;
-        if (playerMovement != null) playerMovement.enabled = true;
+        if (playerInteraction != null) playerInteraction.enabled = true;
 
         focused = false;
         transitioning = false;

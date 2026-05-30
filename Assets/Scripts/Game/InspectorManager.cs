@@ -16,6 +16,9 @@ public class InspectorManager : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private float velocidadRotacion = 300f;
 
+    [Header("Iluminación")]
+    [SerializeField] private Light inspectionLight;
+
     private ObjetoInspeccionable objetoActual;
     private Vector3 posicionOriginalObjeto;
     private Quaternion rotacionOriginalObjeto;
@@ -27,6 +30,7 @@ public class InspectorManager : MonoBehaviour
     {
         Instance = this;
         if (inspectionBackground != null) inspectionBackground.SetActive(false);
+        if (inspectionLight != null) inspectionLight.enabled = false;
     }
 
     private void Update()
@@ -56,8 +60,8 @@ public class InspectorManager : MonoBehaviour
         Vector3 escalaGlobal = objeto.transform.lossyScale;
 
         objeto.transform.SetParent(playerCamera.transform, false);
-        objeto.transform.localPosition = Vector3.forward * objeto.GetDistanciaCamara();
         objeto.transform.localRotation = Quaternion.Euler(objeto.GetRotacionInicial());
+        objeto.transform.localPosition = Vector3.forward * objeto.GetDistanciaCamara();
 
         Vector3 escalaPadre = playerCamera.transform.lossyScale;
         objeto.transform.localScale = new Vector3(
@@ -66,8 +70,26 @@ public class InspectorManager : MonoBehaviour
             escalaGlobal.z / escalaPadre.z
         );
 
+        Physics.SyncTransforms();
+
+        Renderer[] renderers = objeto.GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            Bounds totalBounds = renderers[0].bounds;
+            for (int i = 1; i < renderers.Length; i++)
+            {
+                totalBounds.Encapsulate(renderers[i].bounds);
+            }
+
+            Vector3 centroVisualMundo = totalBounds.center;
+            Vector3 posicionDeseadaMundo = playerCamera.transform.position + playerCamera.transform.forward * objeto.GetDistanciaCamara();
+            Vector3 offsetMundo = posicionDeseadaMundo - centroVisualMundo;
+            objeto.transform.position += offsetMundo;
+        }
+
         if (inspectionBackground != null) inspectionBackground.SetActive(true);
         if (promptText != null) promptText.gameObject.SetActive(false);
+        if (inspectionLight != null) inspectionLight.enabled = true;
 
         if (playerMovementScript != null) playerMovementScript.enabled = false;
         if (playerInteractionScript != null) playerInteractionScript.enabled = false;
@@ -94,6 +116,8 @@ public class InspectorManager : MonoBehaviour
         if (playerInteractionScript != null) playerInteractionScript.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (inspectionLight != null) inspectionLight.enabled = false;
     }
 
     private void RotarObjeto()
@@ -105,10 +129,10 @@ public class InspectorManager : MonoBehaviour
             Vector2 delta = Mouse.current.delta.ReadValue();
 
             float rotacionY = -delta.x * velocidadRotacion * Time.deltaTime * 0.01f;
-            float rotacionX = delta.y * velocidadRotacion * Time.deltaTime * 0.01f;
+            float rotacionX = -delta.y * velocidadRotacion * Time.deltaTime * 0.01f;
 
-            objetoActual.transform.Rotate(Vector3.up, rotacionY, Space.World);
-            objetoActual.transform.Rotate(Vector3.right, rotacionX, Space.World);
+            objetoActual.transform.Rotate(playerCamera.transform.up, rotacionY, Space.World);
+            objetoActual.transform.Rotate(playerCamera.transform.right, rotacionX, Space.World);
         }
     }
 }

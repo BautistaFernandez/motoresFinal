@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - FinalDoor
   - EvilHouse
   - GoodHouse
   - PlacaSombraGarage
+  - Garage
   layers:
   - Default
   - TransparentFX

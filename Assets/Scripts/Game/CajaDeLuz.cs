@@ -6,8 +6,10 @@ public class CajaDeLuz : MonoBehaviour
     [SerializeField] private GameObject[] lucesGarage;
 
     [Header("Obstáculo de Oscuridad")]
-    [Tooltip("Arrastrá acá el Cubo Negro que bloquea el paso")]
     [SerializeField] private GameObject cuboBloqueador;
+
+    [Header("Objective UI")]
+    [SerializeField] private ObjectivePanel objectivePanel;
 
     public bool YaSeActivo { get; private set; } = false;
 
@@ -39,8 +41,9 @@ public class CajaDeLuz : MonoBehaviour
             {
                 if (luz != null) luz.SetActive(true);
             }
-            Debug.Log("¡Fusible colocado! Cubo eliminado y garage abierto.");
         }
+
+        if (objectivePanel != null) objectivePanel.Show("Vuelve al garage y encuentra la llave");
     }
 
     private void ApagarLuces()
