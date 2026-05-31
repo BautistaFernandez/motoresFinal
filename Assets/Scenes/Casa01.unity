@@ -8160,8 +8160,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1226079673}
     - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: cajaDescubierta
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
+      propertyPath: interactionDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
       propertyPath: capasInteractuables.m_Bits
-      value: 1
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31014,7 +31022,7 @@ Transform:
   m_GameObject: {fileID: 1636593947}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.197998, y: 2.5110574, z: -14.3675995}
+  m_LocalPosition: {x: 6.597998, y: 2.5110574, z: -14.7676}
   m_LocalScale: {x: 200, y: 200.00005, z: 200.00005}
   m_ConstrainProportionsScale: 0
   m_Children: []
