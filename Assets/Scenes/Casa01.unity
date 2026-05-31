@@ -8165,7 +8165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
       propertyPath: interactionDistance
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5908408621057817555, guid: 1edd1752579b2d441a58339aa677d0d6, type: 3}
       propertyPath: capasInteractuables.m_Bits
