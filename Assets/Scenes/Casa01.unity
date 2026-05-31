@@ -16344,7 +16344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38cb864f008cb54a8eec21f1ff3d18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DollEventManager
-  demonDoll: {fileID: 0}
+  demonDoll: {fileID: 1512304181}
   risaAudio: {fileID: 0}
   fondoAudio: {fileID: 0}
   tiempoRestante: 600
@@ -18458,7 +18458,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118594710}
-  - component: {fileID: 1118594711}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -18491,25 +18490,6 @@ Transform:
   - {fileID: 957557149}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1118594711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1118594709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9915febe6e3431849b7eeb6df6d3b58c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IntroManager
-  houseGood: {fileID: 0}
-  houseEvil: {fileID: 0}
-  playerTransform: {fileID: 0}
-  posicionSillon: {fileID: 0}
-  objectivePanel: {fileID: 0}
-  textoPensamiento: {fileID: 0}
-  dollEventManager: {fileID: 0}
 --- !u!4 &1126015182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1822776812945514056, guid: 7d581485fa9a22a4fa5a5b9bf0566d97, type: 3}
@@ -30291,7 +30271,7 @@ MonoBehaviour:
   - {fileID: 754382941}
   - {fileID: 409048901}
   cuboBloqueador: {fileID: 726101043}
-  objectivePanel: {fileID: 0}
+  objectivePanel: {fileID: 1226079673}
 --- !u!65 &1601572991
 BoxCollider:
   m_ObjectHideFlags: 0
