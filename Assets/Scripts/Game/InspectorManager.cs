@@ -12,6 +12,7 @@ public class InspectorManager : MonoBehaviour
     [SerializeField] private PlayerInteraction playerInteractionScript;
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject inspectionBackground;
+    [SerializeField] private GameObject inspectionHint;
 
     [Header("Configuración")]
     [SerializeField] private float velocidadRotacion = 300f;
@@ -90,6 +91,7 @@ public class InspectorManager : MonoBehaviour
         if (inspectionBackground != null) inspectionBackground.SetActive(true);
         if (promptText != null) promptText.gameObject.SetActive(false);
         if (inspectionLight != null) inspectionLight.enabled = true;
+        if (inspectionHint != null) inspectionHint.SetActive(true);
 
         if (playerMovementScript != null) playerMovementScript.enabled = false;
         if (playerInteractionScript != null) playerInteractionScript.enabled = false;
@@ -137,6 +139,7 @@ public class InspectorManager : MonoBehaviour
         Cursor.visible = false;
 
         if (inspectionLight != null) inspectionLight.enabled = false;
+        if (inspectionHint != null) inspectionHint.SetActive(false);
     }
 
     private void RotarObjeto()

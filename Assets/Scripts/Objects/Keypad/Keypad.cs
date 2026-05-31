@@ -11,6 +11,7 @@ namespace NavKeypad
         [Header("Events")]
         [SerializeField] private UnityEvent onAccessGranted;
         [SerializeField] private UnityEvent onAccessDenied;
+        public event Action OnCodigoCorrecto;
         [Header("Combination Code (9 Numbers Max)")]
         [SerializeField] private int keypadCombo = 12345;
 
@@ -125,6 +126,7 @@ namespace NavKeypad
             onAccessGranted?.Invoke();
             panelMesh.material.SetVector("_EmissionColor", screenGrantedColor * screenIntensity);
             audioSource.PlayOneShot(accessGrantedSfx);
+            OnCodigoCorrecto?.Invoke();
         }
 
     }
