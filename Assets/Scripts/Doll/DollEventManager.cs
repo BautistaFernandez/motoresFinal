@@ -13,8 +13,8 @@ public class DollEventManager : MonoBehaviour
     [SerializeField] private AudioSource risaAudio;
     [SerializeField] private AudioSource fondoAudio;
 
-    [Header("Temporizador")]
-    public float tiempoRestante = 240f;
+    [Header("Temporizador (Pasado a 10 Minutos)")]
+    public float tiempoRestante = 600f; 
     private bool contadorActivo = false;
     [SerializeField] private TextMeshProUGUI textoReloj;
     private string escenaGameOver = "GameOverScene";
@@ -24,23 +24,24 @@ public class DollEventManager : MonoBehaviour
 
     void Start()
     {
+       
         if (demonDoll != null) demonDoll.gameObject.SetActive(false);
         if (mensajeAlerta != null) mensajeAlerta.gameObject.SetActive(false);
         if (textoReloj != null) textoReloj.gameObject.SetActive(false);
-
-        StartCoroutine(timerAparision());
     }
 
-    private IEnumerator timerAparision()
+    
+    public void GatillarInicioRealDelJuego()
     {
-        yield return new WaitForSecondsRealtime(waitingTime);
-
         if (demonDoll != null)
         {
             demonDoll.gameObject.SetActive(true);
             if (fondoAudio != null) fondoAudio.Play();
             StartCoroutine(BucleRisa());
         }
+
+        
+        IniciarContador();
     }
 
     private IEnumerator BucleRisa()
@@ -62,7 +63,7 @@ public class DollEventManager : MonoBehaviour
             if (textoReloj != null) textoReloj.gameObject.SetActive(true);
 
             StartCoroutine(MostrarCartelEscapa());
-            Debug.Log("Contador de 4 min iniciado.");
+            Debug.Log("Contador de 10 min iniciado de forma oficial.");
         }
     }
 
@@ -90,7 +91,7 @@ public class DollEventManager : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                Time.timeScale = 1f; 
+                Time.timeScale = 1f;
                 SceneManager.LoadScene(escenaGameOver);
             }
         }

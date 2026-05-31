@@ -1,142 +1,66 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; 
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] private Transform cam;
-    [SerializeField] private float interactionDistance = 3f;
-    [SerializeField] private TextMeshProUGUI promptText;
-    [SerializeField] private bool cajaDescubierta = false;
+    [Header("Configuración de Interacción")]
+    [SerializeField] private float distanciaInteraccion = 3f;
+    [SerializeField] private LayerMask capasInteractuables;
+    [SerializeField] private Camera camaraJugador;
+    [SerializeField] private TextMeshProUGUI textoPrompt;
 
-    [Header("Objective UI")]
-    [SerializeField] private ObjectivePanel objectivePanel;
+    private bool TieneFusible = false;
 
-    [Header("Crosshair")]
-    [SerializeField] private CrosshairController crosshair;
-
-    public bool TieneFusible { get; set; } = false;
-
-    void Update()
+    private void Update()
     {
-        UpdateUI();
+        ActualizarRaycastYPrompt();
+
+       
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             InteractionTry();
         }
     }
 
-    private void UpdateUI()
+    private void ActualizarRaycastYPrompt()
     {
-        RaycastHit hit;
-        bool detectado = false;
+        if (camaraJugador == null) return;
 
-        if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
+        Ray ray = new Ray(camaraJugador.transform.position, camaraJugador.transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, distanciaInteraccion, capasInteractuables))
         {
-            if (hit.collider.GetComponent<NotaInteractuable>())
+            if (hit.collider.GetComponent<ObjetoInspeccionable>() != null)
             {
-                promptText.text = "[E] Leer Nota";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponent<LlaveRecogible>())
-            {
-                promptText.text = "[E] Agarrar Llave";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponentInParent<ControladorPuerta>() != null)
-            {
-                promptText.text = "[E] Puerta";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponent<DemonDoll>())
-            {
-                promptText.text = "[E] Tocar Muñeca";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponent<ObjetoInspeccionable>())
-            {
-                promptText.text = "[E] Inspeccionar";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponent<Flashlight>())
-            {
-                promptText.text = "[E] Agarrar Linterna";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponent<FusibleRecogible>())
-            {
-                promptText.text = "[E] Agarrar Fusible";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponentInParent<KeypadFocus>() != null)
-            {
-                promptText.text = "[E] Usar Keypad";
-                detectado = true;
-            }
-            else
-            {
-                CajaDeLuz caja = hit.collider.GetComponent<CajaDeLuz>();
-                if (caja != null && !caja.YaSeActivo)
-                {
-                    promptText.text = TieneFusible ? "[E] Colocar Fusible" : "[E] Reactivar panel eléctrico";
-                    detectado = true;
-                }
+                if (textoPrompt != null) textoPrompt.text = "[E] Inspeccionar";
+                return;
             }
         }
 
-        promptText.gameObject.SetActive(detectado);
-        if (crosshair != null) crosshair.SetHighlight(detectado);
+        if (textoPrompt != null) textoPrompt.text = "";
     }
 
     private void InteractionTry()
     {
+        if (camaraJugador == null) return;
+
+        Ray ray = new Ray(camaraJugador.transform.position, camaraJugador.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
+
+        if (Physics.Raycast(ray, out hit, distanciaInteraccion, capasInteractuables))
         {
-           
-            LlaveRecogible llave = hit.collider.GetComponent<LlaveRecogible>();
-            if (llave != null)
-            {
-                llave.Recoger();
-                return;
-            }
-
-            ControladorPuerta puerta = hit.collider.GetComponentInParent<ControladorPuerta>();
-            if (puerta != null)
-            {
-                puerta.IntentarAbrir();
-                return;
-            }
-
-            if (hit.collider.GetComponent<DemonDoll>())
-            {
-                var manager = Object.FindFirstObjectByType<DollEventManager>();
-                if (manager != null) manager.IniciarContador();
-                return;
-            }
-
-            Flashlight linterna = hit.collider.GetComponent<Flashlight>();
-            if (linterna != null)
-            {
-                linterna.Recoger();
-                return;
-            }
-
-            NotaInteractuable nota = hit.collider.GetComponent<NotaInteractuable>();
-            if (nota != null)
-            {
-                nota.Interactuar();
-                return;
-            }
-
             ObjetoInspeccionable inspeccionable = hit.collider.GetComponent<ObjetoInspeccionable>();
             if (inspeccionable != null)
             {
-                inspeccionable.Inspeccionar();
+                if (InspectorManager.Instance != null)
+                {
+                    InspectorManager.Instance.IniciarInspeccion(inspeccionable);
+                }
                 return;
             }
 
-           
             FusibleRecogible fusible = hit.collider.GetComponent<FusibleRecogible>();
             if (fusible != null)
             {
@@ -148,29 +72,7 @@ public class PlayerInteraction : MonoBehaviour
             CajaDeLuz caja = hit.collider.GetComponent<CajaDeLuz>();
             if (caja != null)
             {
-                
-                if (caja.YaSeActivo) return;
-
-                if (TieneFusible)
-                {
-                    TieneFusible = false;
-                    caja.EncenderEnergia();
-                }
-                else
-                {
-                    if (!cajaDescubierta)
-                    {
-                        cajaDescubierta = true;
-                        objectivePanel.Show("Encuentra el fusible en la cocina");
-                    }
-                }
-                return;
-            }
-
-            KeypadFocus keypadFocus = hit.collider.GetComponent<KeypadFocus>();
-            if (keypadFocus != null)
-            {
-                keypadFocus.Interactuar();
+                Debug.Log("Interactuando con caja de luz.");
                 return;
             }
         }

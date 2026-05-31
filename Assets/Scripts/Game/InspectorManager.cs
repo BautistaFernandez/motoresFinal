@@ -95,12 +95,31 @@ public class InspectorManager : MonoBehaviour
         if (playerInteractionScript != null) playerInteractionScript.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        objetoActual.IniciarInspeccion();
     }
 
-    private void TerminarInspeccion()
+    public void TerminarInspeccion()
     {
         if (objetoActual == null) return;
 
+        DibujoDisparadorIntro disparadorSusto = objetoActual.GetComponent<DibujoDisparadorIntro>();
+        if (disparadorSusto != null)
+        {
+            disparadorSusto.ActivarScreamerDeIntro();
+        }
+
+        ResetearEstadoObjeto();
+    }
+
+    public void TerminarInspeccionExterior()
+    {
+        if (objetoActual == null) return;
+        ResetearEstadoObjeto();
+    }
+
+    private void ResetearEstadoObjeto()
+    {
         objetoActual.transform.SetParent(padreOriginal);
         objetoActual.transform.position = posicionOriginalObjeto;
         objetoActual.transform.rotation = rotacionOriginalObjeto;
