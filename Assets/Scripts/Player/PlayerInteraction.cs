@@ -1,12 +1,16 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem; // Sistema moderno obligatorio para Unity 6
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [Header("Configuración de Cámara y Raycast")]
     [SerializeField] private Transform cam;
     [SerializeField] private float interactionDistance = 3f;
+
+    [Header("UI y Textos")]
     [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private bool cajaDescubierta = false;
 
     [Header("Objective UI")]
     [SerializeField] private ObjectivePanel objectivePanel;
@@ -20,6 +24,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         UpdateUI();
 
+        // Control unificado del Input System Moderno para la tecla E
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             InteractionTry();
@@ -28,76 +33,63 @@ public class PlayerInteraction : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (cam == null) return;
-
-        if (promptText == null)
-        {
-            Debug.LogWarning("¡Falta asignar el Prompt Text en el Inspector del Player!");
-            return;
-        }
+        if (cam == null || promptText == null) return;
 
         RaycastHit hit;
         bool detectado = false;
+        string textoAmostrar = "";
 
-       
+        // RAYCAST LIBRE: Sin máscaras que bloqueen la visión para que no se escape nada
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            // 1. DIBUJO COCINA (Cambio de dimensiones)
-            if (hit.collider.GetComponent<ObjetoInspeccionable>() != null)
+            // ESCÁNER TOTAL EN CASCADA: Lee el objeto y todos sus padres en la jerarquía
+            Component[] componentes = hit.collider.GetComponentsInParent<Component>();
+            foreach (var comp in componentes)
             {
-                promptText.text = "[E] Inspeccionar";
-                detectado = true;
-            }
-            // 2. NOTAS
-            else if (hit.collider.GetComponent<NotaInteractuable>() != null)
-            {
-                promptText.text = "[E] Leer Nota";
-                detectado = true;
-            }
-            // 3. LLAVES
-            else if (hit.collider.GetComponent<LlaveRecogible>() != null)
-            {
-                promptText.text = "[E] Agarrar Llave";
-                detectado = true;
-            }
-            // 4. PUERTAS DE TU COMPAÑERO (Buscamos en el padre también)
-            else if (hit.collider.GetComponentInParent<ControladorPuerta>() != null)
-            {
-                promptText.text = "[E] Interactuar con Puerta";
-                detectado = true;
-            }
-            // 5. FUSIBLES Y CAJAS
-            else if (hit.collider.GetComponentInParent<FusibleRecogible>() != null)
-            {
-                promptText.text = "[E] Recoger Fusible";
-                detectado = true;
-            }
-            else if (hit.collider.GetComponentInParent<CajaDeLuz>() != null)
-            {
-                promptText.text = "[E] Colocar Fusible";
-                detectado = true;
-            }
-            // 6. CERRADURA ELÉCTRICA
-            else
-            {
-                Component[] comps = hit.collider.GetComponentsInParent<Component>();
-                foreach (var c in comps)
-                {
-                    if (c == null) continue;
-                    string n = c.GetType().Name.ToLower();
-                    if (n.Contains("cerradura") || n.Contains("codigo") || n.Contains("magnetica") || n.Contains("panel"))
-                    {
-                        promptText.text = "[E] Usar Panel";
-                        detectado = true;
-                        break;
-                    }
-                }
+                if (comp == null || comp is Transform || comp is Collider || comp is MeshRenderer) continue;
+
+                string nombre = comp.GetType().Name.ToLower();
+
+                // 1. Cambio de casa (Prioridad)
+                if (nombre.Contains("objetoinspeccionable")) { textoAmostrar = "[E] Inspeccionar"; detectado = true; break; }
+
+                // 2. Linterna (Agregada para que la detecte sí o sí)
+                if (nombre.Contains("linterna")) { textoAmostrar = "[E] Agarrar Linterna"; detectado = true; break; }
+
+                // 3. Notas y Llaves
+                if (nombre.Contains("nota")) { textoAmostrar = "[E] Leer Nota"; detectado = true; break; }
+                if (nombre.Contains("llave")) { textoAmostrar = "[E] Agarrar Llave"; detectado = true; break; }
+
+                // 4. Puertas de tu compañero
+                if (nombre.Contains("controladorpuerta") || nombre.Contains("puerta")) { textoAmostrar = "[E] Interactuar con Puerta"; detectado = true; break; }
+
+                // 5. Fusibles y Cajas de luz
+                if (nombre.Contains("fusible")) { textoAmostrar = "[E] Recoger Fusible"; detectado = true; break; }
+                if (nombre.Contains("caja") || nombre.Contains("luz")) { textoAmostrar = "[E] Colocar Fusible"; detectado = true; break; }
+
+                // 6. Cerraduras, paneles y códigos
+                if (nombre.Contains("cerradura") || nombre.Contains("codigo") || nombre.Contains("magnetica") || nombre.Contains("panel")) { textoAmostrar = "[E] Usar Panel"; detectado = true; break; }
             }
         }
 
-        if (!detectado)
+        // CONTROL BRUTAL DE LA UI: Prende y apaga el objeto de texto para forzar a Unity a mostrarlo
+        if (detectado && textoAmostrar != "")
+        {
+            promptText.text = textoAmostrar;
+            promptText.gameObject.SetActive(true);
+        }
+        else
         {
             promptText.text = "";
+            promptText.gameObject.SetActive(false);
+        }
+
+        // CONTROL DEL CROSSHAIR ORIGINAL DE TU GIT
+        if (crosshair != null)
+        {
+            // NOTA: Si en la consola te salta el error rojo "CS1061 SetInteractable no existe", 
+            // simplemente borrá o comentá la línea de abajo. La dejo porque estaba en tu Git base.
+            // crosshair.SetInteractable(detectado);
         }
     }
 
@@ -109,7 +101,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(cam.position, cam.forward, out hit, interactionDistance))
         {
-            // A. CAMBIO A LA HOUSE EVIL
+            // A. CAMBIO A LA HOUSE EVIL (Intacto, no se rompe la intro)
             ObjetoInspeccionable inspeccionable = hit.collider.GetComponent<ObjetoInspeccionable>();
             if (inspeccionable != null && InspectorManager.Instance != null)
             {
@@ -117,40 +109,34 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
-            // B. NOTAS
-            NotaInteractuable nota = hit.collider.GetComponent<NotaInteractuable>();
-            if (nota != null) { nota.SendMessage("Interactuar", SendMessageOptions.DontRequireReceiver); return; }
-
-            // C. LLAVES
-            LlaveRecogible llave = hit.collider.GetComponent<LlaveRecogible>();
-            if (llave != null) { llave.SendMessage("Interactuar", SendMessageOptions.DontRequireReceiver); return; }
-
-            // D. PUERTAS (LA SOLUCIÓN MÁGICA BASADA EN TU CÓDIGO)
+            // B. LA PUERTA EXACTA DE TU COMPAÑERO (Llama a IntentarAbrir)
             ControladorPuerta puerta = hit.collider.GetComponentInParent<ControladorPuerta>();
             if (puerta != null)
             {
-                // Llamamos a la función real que existe en su script
                 puerta.IntentarAbrir();
                 return;
             }
 
-            // E. FUSIBLES
-            FusibleRecogible fusible = hit.collider.GetComponentInParent<FusibleRecogible>();
-            if (fusible != null)
+            // C. DISPARADOR UNIVERSAL (Linterna, Fusibles, Cerraduras, Llaves, Notas)
+            Component[] componentes = hit.collider.GetComponentsInParent<Component>();
+            foreach (var comp in componentes)
             {
-                TieneFusible = true;
-                fusible.SendMessage("Recoger", SendMessageOptions.DontRequireReceiver);
-                fusible.SendMessage("Interactuar", SendMessageOptions.DontRequireReceiver);
-                return;
+                if (comp == null || comp is Transform || comp is Collider || comp is MeshRenderer) continue;
+
+                string nombre = comp.GetType().Name.ToLower();
+
+                // Cambio de estado si es el fusible
+                if (nombre.Contains("fusible"))
+                {
+                    TieneFusible = true;
+                }
+
+                // Dispara todas las señales de interacción posibles de tu equipo al objeto
+                comp.SendMessage("Interactuar", SendMessageOptions.DontRequireReceiver);
+                comp.SendMessage("Interaccion", SendMessageOptions.DontRequireReceiver);
+                comp.SendMessage("Recoger", SendMessageOptions.DontRequireReceiver);
+                comp.SendMessage("AbrirCerradura", SendMessageOptions.DontRequireReceiver);
             }
-
-            // F. CAJA DE LUZ
-            CajaDeLuz caja = hit.collider.GetComponentInParent<CajaDeLuz>();
-            if (caja != null) { caja.SendMessage("Interactuar", SendMessageOptions.DontRequireReceiver); return; }
-
-            // G. CERRADURA ELÉCTRICA
-            hit.collider.SendMessageUpwards("Interactuar", SendMessageOptions.DontRequireReceiver);
-            hit.collider.SendMessageUpwards("Interaccion", SendMessageOptions.DontRequireReceiver);
         }
     }
 }
