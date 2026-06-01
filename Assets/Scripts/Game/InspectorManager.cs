@@ -13,6 +13,7 @@ public class InspectorManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private GameObject inspectionBackground;
     [SerializeField] private GameObject inspectionHint;
+    [SerializeField] private Unity.Cinemachine.CinemachineInputAxisController cinemachineInput;
 
     [Header("Configuración")]
     [SerializeField] private float velocidadRotacion = 300f;
@@ -95,6 +96,7 @@ public class InspectorManager : MonoBehaviour
 
         if (playerMovementScript != null) playerMovementScript.enabled = false;
         if (playerInteractionScript != null) playerInteractionScript.enabled = false;
+        if (cinemachineInput != null) cinemachineInput.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -135,6 +137,7 @@ public class InspectorManager : MonoBehaviour
 
         if (playerMovementScript != null) playerMovementScript.enabled = true;
         if (playerInteractionScript != null) playerInteractionScript.enabled = true;
+        if (cinemachineInput != null) cinemachineInput.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 

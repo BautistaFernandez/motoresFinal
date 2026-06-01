@@ -8,6 +8,8 @@ public class KeypadFocus : MonoBehaviour
     [SerializeField] private Transform cam;
     [SerializeField] private Transform focusPoint;
     [SerializeField] private float transitionSpeed = 6f;
+    [SerializeField] private Unity.Cinemachine.CinemachineInputAxisController cinemachineInput;
+    [SerializeField] private Unity.Cinemachine.CinemachineCamera cinemachineFPSCam;
 
     [Header("Scripts a pausar")]
     [SerializeField] private Movement playerMovement;
@@ -63,8 +65,11 @@ public class KeypadFocus : MonoBehaviour
 
         if (playerMovement != null) playerMovement.enabled = false;
         if (playerInteraction != null) playerInteraction.enabled = false;
+        if (cinemachineInput != null) cinemachineInput.enabled = false;
 
         cam.SetParent(null);
+
+        if (cinemachineFPSCam != null) cinemachineFPSCam.gameObject.SetActive(false);
 
         float t = 0f;
         Vector3 startPos = cam.position;
@@ -117,8 +122,10 @@ public class KeypadFocus : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        if (cinemachineFPSCam != null) cinemachineFPSCam.gameObject.SetActive(true);
         if (playerMovement != null) playerMovement.enabled = true;
         if (playerInteraction != null) playerInteraction.enabled = true;
+        if (cinemachineInput != null) cinemachineInput.enabled = true;
 
         focused = false;
         transitioning = false;

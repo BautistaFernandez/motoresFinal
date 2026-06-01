@@ -1,7 +1,8 @@
-using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DollEventManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class DollEventManager : MonoBehaviour
     public float tiempoRestante = 600f; 
     private bool contadorActivo = false;
     [SerializeField] private TextMeshProUGUI textoReloj;
+    [SerializeField] private float duracionHUD = 10f;
+    [SerializeField] private List<TextMeshPro> textosRelojTVs;
     private string escenaGameOver = "GameOverScene";
 
     [Header("UI Alerta")]
@@ -63,8 +66,15 @@ public class DollEventManager : MonoBehaviour
             if (textoReloj != null) textoReloj.gameObject.SetActive(true);
 
             StartCoroutine(MostrarCartelEscapa());
+            StartCoroutine(OcultarRelojHUD());
             Debug.Log("Contador de 10 min iniciado de forma oficial.");
         }
+    }
+
+    private IEnumerator OcultarRelojHUD()
+    {
+        yield return new WaitForSecondsRealtime(duracionHUD);
+        if (textoReloj != null) textoReloj.gameObject.SetActive(false);
     }
 
     private IEnumerator MostrarCartelEscapa()
@@ -104,6 +114,17 @@ public class DollEventManager : MonoBehaviour
             int minutos = Mathf.FloorToInt(tiempoRestante / 60);
             int segundos = Mathf.FloorToInt(tiempoRestante % 60);
             textoReloj.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+            string textoFormateado = string.Format("{0:00}:{1:00}", minutos, segundos);
+
+            if (textoReloj != null) textoReloj.text = textoFormateado;
+
+            if (textosRelojTVs != null)
+            {
+                foreach (TextMeshPro tv in textosRelojTVs)
+                {
+                    if (tv != null) tv.text = textoFormateado;
+                }
+            }
         }
     }
 }

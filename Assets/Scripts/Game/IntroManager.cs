@@ -13,6 +13,7 @@ public class IntroManager : MonoBehaviour
     [Header("Puntos de Spawn del Jugador")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform posicionSillon;
+    [SerializeField] private Transform spawnHouseEvil;
 
     [Header("Componentes de la UI")]
     [SerializeField] private ObjectivePanel objectivePanel;
@@ -22,9 +23,20 @@ public class IntroManager : MonoBehaviour
     [Tooltip("Arrastrá acá el objeto que tiene el script DollEventManager")]
     [SerializeField] private DollEventManager dollEventManager;
 
+    [Header("Muñeca flotante (casa malvada)")]
+    [SerializeField] private GameObject munecaFlotante;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private float tiempoEsperaDesaparicion = 2f;
+
+    [Header("Cámara")]
+    [SerializeField] private Unity.Cinemachine.CinemachinePanTilt cinemachinePanTilt;
+
+
     private Rigidbody playerRb;
     private Movement playerMovement;
     private bool introCompletada = false;
+    private bool munecaYaVistaProgramada = false;
+    private bool deteccionMunecaActiva = false;
 
     private void Awake()
     {
@@ -49,6 +61,35 @@ public class IntroManager : MonoBehaviour
         StartCoroutine(RutinaInicialSegura());
     }
 
+    private void Update()
+    {
+
+        if (deteccionMunecaActiva && !munecaYaVistaProgramada && munecaFlotante != null && munecaFlotante.activeSelf)
+        {
+            if (MuñecaVistaPorPlayer())
+            {
+                munecaYaVistaProgramada = true;
+                StartCoroutine(DesaparecerMuñecaTrasEspera());
+            }
+        }
+    }
+
+    private bool MuñecaVistaPorPlayer()
+    {
+        if (playerCamera == null || munecaFlotante == null) return false;
+
+        Vector3 viewportPos = playerCamera.WorldToViewportPoint(munecaFlotante.transform.position);
+        return viewportPos.z > 0 &&
+               viewportPos.x > 0 && viewportPos.x < 1 &&
+               viewportPos.y > 0 && viewportPos.y < 1;
+    }
+
+    private IEnumerator DesaparecerMuñecaTrasEspera()
+    {
+        yield return new WaitForSeconds(tiempoEsperaDesaparicion);
+        if (munecaFlotante != null) munecaFlotante.SetActive(false);
+    }
+
     private IEnumerator RutinaInicialSegura()
     {
         if (playerMovement != null) playerMovement.enabled = false;
@@ -60,6 +101,12 @@ public class IntroManager : MonoBehaviour
         {
             playerTransform.position = posicionSillon.position;
             playerTransform.rotation = posicionSillon.rotation;
+        }
+
+        if (cinemachinePanTilt != null && posicionSillon != null)
+        {
+            cinemachinePanTilt.PanAxis.Value = posicionSillon.eulerAngles.y - playerTransform.eulerAngles.y;
+            cinemachinePanTilt.TiltAxis.Value = 0f;
         }
 
         yield return new WaitForEndOfFrame();
@@ -75,7 +122,6 @@ public class IntroManager : MonoBehaviour
         }
     }
 
-    // El método definitivo que conecta con el Escape del dibujo
     public void DibujoDeCocinaInspeccionado()
     {
         if (introCompletada) return;
@@ -97,6 +143,29 @@ public class IntroManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        if (playerMovement != null) playerMovement.enabled = false;
+        if (playerRb != null) playerRb.linearVelocity = Vector3.zero;
+
+        if (playerTransform != null && spawnHouseEvil != null)
+        {
+            playerTransform.position = spawnHouseEvil.position;
+            playerTransform.rotation = spawnHouseEvil.rotation;
+        }
+
+        if (cinemachinePanTilt != null && spawnHouseEvil != null)
+        {
+            cinemachinePanTilt.PanAxis.Value = spawnHouseEvil.eulerAngles.y - playerTransform.eulerAngles.y;
+            cinemachinePanTilt.TiltAxis.Value = 0f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        if (playerMovement != null) playerMovement.enabled = true;
+
+        yield return new WaitForSeconds(1.5f);
+        deteccionMunecaActiva = true;
+
+        yield return new WaitForSeconds(4.5f);
         // C. Frase de confusión en la UI
         if (textoPensamiento != null)
         {
