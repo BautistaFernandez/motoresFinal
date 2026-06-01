@@ -7,9 +7,12 @@ public class EnemyRoute : MonoBehaviour
 
     [Header("Configuración de Ruta")]
     [SerializeField] private Transform puntoB;
+    [SerializeField] private float distanciaTolerancia = 0.5f;
 
     [Header("Detección por cámara")]
     [SerializeField] private Camera playerCamera;
+
+    [SerializeField] private AudioSource monsterScreamer;
 
     private bool yaArrancoCaminar = false;
 
@@ -21,6 +24,11 @@ public class EnemyRoute : MonoBehaviour
         {
             Debug.LogWarning($"No asignaste el Punto B en el enemigo {gameObject.name}");
         }
+
+        if (agente != null && agente.stoppingDistance == 0)
+        {
+            agente.stoppingDistance = distanciaTolerancia;
+        }
     }
 
     void Update()
@@ -30,17 +38,22 @@ public class EnemyRoute : MonoBehaviour
             if (EnemigoVistoPorPlayer())
             {
                 yaArrancoCaminar = true;
+                monsterScreamer.Play();
                 if (puntoB != null) agente.SetDestination(puntoB.position);
             }
             return;
         }
 
-        if (!agente.pathPending && agente.remainingDistance <= agente.stoppingDistance)
+        /*if (!agente.pathPending && agente.remainingDistance <= agente.stoppingDistance)
         {
             if (!agente.hasPath || agente.velocity.sqrMagnitude == 0f)
             {
                 DesaparecerEnemigo();
             }
+        }*/
+        if (!agente.pathPending && agente.remainingDistance <= agente.stoppingDistance)
+        {
+            DesaparecerEnemigo();
         }
     }
 

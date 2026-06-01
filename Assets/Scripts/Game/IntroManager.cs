@@ -162,10 +162,10 @@ public class IntroManager : MonoBehaviour
 
         if (playerMovement != null) playerMovement.enabled = true;
 
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
         deteccionMunecaActiva = true;
 
-        yield return new WaitForSeconds(4.5f);
+        //yield return new WaitForSeconds(4.5f);
         // C. Frase de confusión en la UI
         if (textoPensamiento != null)
         {
