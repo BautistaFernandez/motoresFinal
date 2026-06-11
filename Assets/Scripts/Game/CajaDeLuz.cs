@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class CajaDeLuz : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class CajaDeLuz : MonoBehaviour
     [Header("Objective UI")]
     [SerializeField] private ObjectivePanel objectivePanel;
 
+
     public bool YaSeActivo { get; private set; } = false;
+
+    public static event Action OnEnergiaRestaurada;
 
     void Start()
     {
@@ -44,6 +48,8 @@ public class CajaDeLuz : MonoBehaviour
         }
 
         if (objectivePanel != null) objectivePanel.Show("Vuelve al garage y encuentra la llave");
+
+        OnEnergiaRestaurada?.Invoke();
     }
 
     private void ApagarLuces()
