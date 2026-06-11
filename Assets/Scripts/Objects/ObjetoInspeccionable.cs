@@ -10,7 +10,7 @@ public class ObjetoInspeccionable : MonoBehaviour
 
     [Header("UI de Subtítulos y Prompts")]
     [SerializeField] protected TextMeshProUGUI subtituloText;
-    [Tooltip("Opcional: Arrastrá acá el cartel UI que dice [ESC] para salir")]
+    [Tooltip("Opcional: Arrastrá acá el cartel UI que dice [Click Derecho] para salir")]
     [SerializeField] protected GameObject promptDejarText;
     [TextArea]
     [SerializeField] private string[] lineasSubtitulos;
@@ -52,7 +52,7 @@ public class ObjetoInspeccionable : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        // Si es una foto de pista normal, se cierra sola. Si es el dibujo, espera al ESC
+        
         if (DeberiaAutoCerrarse())
         {
             subtituloText.text = "";

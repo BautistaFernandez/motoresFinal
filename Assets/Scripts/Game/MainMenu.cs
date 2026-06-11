@@ -8,7 +8,8 @@ public class MenuPrincipal : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+ 
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             if (panelControles.activeSelf)
             {

@@ -41,7 +41,7 @@ public class InspectorManager : MonoBehaviour
 
         RotarObjeto();
 
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             TerminarInspeccion();
         }
