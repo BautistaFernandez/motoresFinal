@@ -138,6 +138,12 @@ public class FantasmaIA : MonoBehaviour
     private IEnumerator ApagarDespuesDeAnimacion()
     {
         yield return new WaitForSeconds(2f);
+
+       
+        Cursor.lockState = CursorLockMode.None;
+        
+        Cursor.visible = true;
+
         gameObject.SetActive(false);
     }
 }

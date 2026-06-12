@@ -34016,7 +34016,7 @@ MonoBehaviour:
   jugador: {fileID: 1361125782}
   tiempoDeVida: 10
   distanciaDeteccion: 15
-  distanciaMuerte: 3
+  distanciaMuerte: 2.5
   audioSourceEfectos: {fileID: 956572863}
   audioSourceLoop: {fileID: 956572862}
   clipAparicion: {fileID: 8300000, guid: 5c273337108c21f49aedf10885bd7740, type: 3}
