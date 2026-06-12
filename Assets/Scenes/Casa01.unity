@@ -22419,7 +22419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b812d07a1933c0949b7c489135027dfd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b812d07a1933c0949b7c489135027dfd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23938,6 +23938,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: "Esto es en mi mesa? C\xF3mo entraron?"
   monstruoAActivar: {fileID: 0}
+  managerApariciones: {fileID: 0}
 --- !u!64 &585783915
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -33482,8 +33483,8 @@ MonoBehaviour:
   agente: {fileID: 956572866}
   jugador: {fileID: 1361125782}
   tiempoDeVida: 10
-  distanciaDeteccion: 10
-  distanciaMuerte: 1.5
+  distanciaDeteccion: 15
+  distanciaMuerte: 3
   audioSourceEfectos: {fileID: 956572863}
   audioSourceLoop: {fileID: 956572862}
   clipAparicion: {fileID: 8300000, guid: 5c273337108c21f49aedf10885bd7740, type: 3}
@@ -35046,6 +35047,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: "Esto es en mi mesa? C\xF3mo entraron?"
   monstruoAActivar: {fileID: 0}
+  managerApariciones: {fileID: 0}
 --- !u!1 &1037825721 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2663032837252493046, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
@@ -44042,6 +44044,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: "\xBFSecretos? \xBFEn las paredes?"
   monstruoAActivar: {fileID: 477256928}
+  managerApariciones: {fileID: 0}
 --- !u!1 &1328935225
 GameObject:
   m_ObjectHideFlags: 0
@@ -45159,7 +45162,7 @@ Transform:
   m_GameObject: {fileID: 1380386889}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.4, y: 0.2, z: -4.5}
+  m_LocalPosition: {x: -6.4, y: 0.4, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56845,6 +56848,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: "Esto es en mi mesa? C\xF3mo entraron?"
   monstruoAActivar: {fileID: 0}
+  managerApariciones: {fileID: 0}
 --- !u!1 &1703264912 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1293822834890016656, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
@@ -64424,6 +64428,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: 
   monstruoAActivar: {fileID: 0}
+  managerApariciones: {fileID: 0}
 --- !u!65 &1880987341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65251,6 +65256,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: 
   monstruoAActivar: {fileID: 0}
+  managerApariciones: {fileID: 0}
 --- !u!1 &1937337293
 GameObject:
   m_ObjectHideFlags: 0
@@ -71610,6 +71616,7 @@ MonoBehaviour:
   objectivePanel: {fileID: 1226079673}
   mensajePista: "Y este dibujo? Tendr\xE1 algo atr\xE1s?"
   monstruoAActivar: {fileID: 0}
+  managerApariciones: {fileID: 342907406}
 --- !u!1 &2030921722
 GameObject:
   m_ObjectHideFlags: 0

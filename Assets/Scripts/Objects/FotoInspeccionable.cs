@@ -10,19 +10,27 @@ public class FotoInspeccionable : ObjetoInspeccionable
     [Header("Activación de Eventos")]
     [SerializeField] private GameObject monstruoAActivar;
 
+    // ¡NUEVO! La conexión con el reloj
+    [SerializeField] private ManagerApariciones managerApariciones;
+
     protected override void AlInspeccionar()
     {
-        // 1. Mostrar el panel de la pista (se mantiene como antes)
+        // 1. Mostrar el panel de la pista
         if (objectivePanel != null && !string.IsNullOrEmpty(mensajePista))
         {
             objectivePanel.Show(mensajePista);
         }
 
-        // 2. Reconocer si es la foto del monstruo
-        // Si este campo NO está vacío, significa que ES la foto elegida
+        // 2. Activar el evento visual de la foto
         if (monstruoAActivar != null)
         {
-            monstruoAActivar.SetActive(true); // Activa al enemigo en la escena
+            monstruoAActivar.SetActive(true);
+        }
+
+        
+        if (managerApariciones != null)
+        {
+            managerApariciones.EmpezarContadorEvil();
         }
     }
 }

@@ -13,7 +13,7 @@ public class FantasmaIA : MonoBehaviour
     [Header("Configuración")]
     public float tiempoDeVida = 10f;
     public float distanciaDeteccion = 10f;
-    public float distanciaMuerte = 1.5f; 
+    public float distanciaMuerte = 1.5f;
 
     [Header("Audios")]
     public AudioSource audioSourceEfectos;
@@ -35,7 +35,14 @@ public class FantasmaIA : MonoBehaviour
 
         activa = true;
         atacando = false;
-        agente.isStopped = true;
+
+       
+        if (agente != null)
+        {
+            agente.enabled = true; 
+            agente.Warp(puntoSpawn.position); 
+            agente.isStopped = true; 
+        }
 
         anim.Play("Zombie Stand Up", -1, 0f);
 
@@ -52,9 +59,8 @@ public class FantasmaIA : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         float tiempoPasado = 0f;
-        float tiempoBuscando = tiempoDeVida - 1f; 
+        float tiempoBuscando = tiempoDeVida - 1f;
 
-        
         while (tiempoPasado < tiempoBuscando && activa && !atacando)
         {
             float distancia = Vector3.Distance(transform.position, jugador.position);
@@ -62,7 +68,7 @@ public class FantasmaIA : MonoBehaviour
             if (distancia <= distanciaMuerte)
             {
                 Atacar();
-                yield break; 
+                yield break;
             }
             else if (distancia <= distanciaDeteccion)
             {
@@ -125,13 +131,13 @@ public class FantasmaIA : MonoBehaviour
 
     private IEnumerator GameOverSecuencia()
     {
-        yield return new WaitForSeconds(1.5f); 
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("GameOverScene");
     }
 
     private IEnumerator ApagarDespuesDeAnimacion()
     {
-        yield return new WaitForSeconds(2f); 
+        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 }
