@@ -15,6 +15,13 @@ public class Movement : MonoBehaviour
     [SerializeField] private float minTimeBetweenSteps = 0.25f;
     [SerializeField] private float pitchVariation = 0.05f;
 
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
+    [Header("Skin")]
+    [SerializeField] private Transform playerSkin;
+    [SerializeField] private float skinRotationSpeed = 10f;
+
     private Vector3 lastPosition;
     private float distanceTraveled;
     private float lastStepTime;
@@ -57,12 +64,31 @@ public class Movement : MonoBehaviour
         Vector3 movement = (right * movementEntry.x) + (forward * movementEntry.y);
         movement.Normalize();
 
+        if (playerSkin != null)
+        {
+            Vector3 forwardCamara = playerCamera.forward;
+            forwardCamara.y = 0;
+            forwardCamara.Normalize();
+
+            if (forwardCamara.sqrMagnitude > 0.01f)
+            {
+                Quaternion rotacionDeseada = Quaternion.LookRotation(forwardCamara, Vector3.up);
+                playerSkin.rotation = Quaternion.Slerp(playerSkin.rotation, rotacionDeseada, skinRotationSpeed * Time.fixedDeltaTime);
+            }
+        }
+
         Vector3 finalSpeed = movement * speed;
         finalSpeed.y = rb.linearVelocity.y;
 
         rb.linearVelocity = finalSpeed;
 
         Footsteps();
+
+        if (animator != null)
+        {
+            bool isMoving = movementEntry.magnitude > 0.1f;
+            animator.SetBool("IsWalking", isMoving);
+        }
     }
 
     private void Footsteps()
