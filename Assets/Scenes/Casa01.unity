@@ -14043,10 +14043,10 @@ MonoBehaviour:
   - {fileID: 138458402}
   sourceMundo: {fileID: 159391069}
   sourcePlayer: {fileID: 1955728569}
-  musicaTension: {fileID: 0}
-  gritoFuerte: {fileID: 0}
-  latidosCorazon: {fileID: 0}
-  respiracionAgitada: {fileID: 0}
+  musicaTension: {fileID: 8300000, guid: f36a5a1f14962d149b2f6ead3c5e0b1f, type: 3}
+  gritoFuerte: {fileID: 8300000, guid: 2096b47f181a69b4aa8ab9a4e7d950cc, type: 3}
+  latidosCorazon: {fileID: 8300000, guid: 1dbd3cf71b1aae64f9954af31f2d5e49, type: 3}
+  respiracionAgitada: {fileID: 8300000, guid: d5a2651910e1d0a4090c36071dd38535, type: 3}
 --- !u!1 &251507250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1953390336702740012, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
