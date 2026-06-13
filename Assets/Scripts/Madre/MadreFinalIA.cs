@@ -41,7 +41,7 @@ public class MadreFinalIA : MonoBehaviour
         {
             agente.SetDestination(jugador.position);
 
-            if (Vector3.Distance(transform.position, jugador.position) <= 1.8f)
+            if (Vector3.Distance(transform.position, jugador.position) <= 2.6f)
             {
                 Matar();
             }
