@@ -10,12 +10,21 @@ public class LlaveRecogible : MonoBehaviour
     [TextArea]
     [SerializeField] private string mensajeObjetivo;
 
+   
+    [Header("Evento Final")]
+    [SerializeField] private ManagerEventoFinal managerFinal;
+
     public void Recoger()
     {
         if (lockAabrir != null) lockAabrir.Unlock();
         if (objectivePanel != null) objectivePanel.Show(mensajeObjetivo);
 
+      
+        if (managerFinal != null)
+        {
+            managerFinal.DesatarElCaos();
+        }
+
         Destroy(gameObject);
     }
 }
-

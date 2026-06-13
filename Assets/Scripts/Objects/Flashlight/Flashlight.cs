@@ -16,6 +16,10 @@ public class Flashlight : MonoBehaviour
     [Header("Rotación al recoger")]
     [SerializeField] private Vector3 pickupRotation = Vector3.zero;
 
+    
+    [Header("Apagón Mundial")]
+    [SerializeField] private GameObject luzPrincipal;
+
     private ILightMode currentMode;
     private ILightMode normalMode;
     private ILightMode uvMode;
@@ -27,7 +31,7 @@ public class Flashlight : MonoBehaviour
     public bool IsUVActive => picked && turnedOn && currentMode.IsUVMode;
     public Transform LightTransform => flashlightLight != null ? flashlightLight.transform : null;
 
-    // Evento que disparan los suscriptores al recoger la linterna.
+  
     public event Action OnPickedUp;
 
     private void Awake()
@@ -49,6 +53,7 @@ public class Flashlight : MonoBehaviour
             ToggleLight();
         }
 
+      
         if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             SwitchMode();
@@ -69,6 +74,12 @@ public class Flashlight : MonoBehaviour
             transform.SetParent(holderOnPickup);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.Euler(pickupRotation);
+        }
+
+       
+        if (luzPrincipal != null)
+        {
+            Destroy(luzPrincipal);
         }
 
         OnPickedUp?.Invoke();
