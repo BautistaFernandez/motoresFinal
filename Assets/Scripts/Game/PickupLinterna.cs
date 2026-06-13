@@ -7,10 +7,10 @@ public class PickupLinterna : ObjetoInspeccionable
 
     protected override void AlInspeccionar()
     {
-        
+
         if (luzPrincipal != null)
         {
-            Destroy(luzPrincipal);
+            luzPrincipal.SetActive(false);
         }
     }
 }
