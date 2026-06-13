@@ -36153,7 +36153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090337224}
   - component: {fileID: 1090337226}
-  - component: {fileID: 1090337225}
+  - component: {fileID: 1090337227}
   m_Layer: 0
   m_Name: MusicaFinal
   m_TagString: Untagged
@@ -36176,20 +36176,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1393168113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1090337225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090337223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e150ce2371f0c14fbf7ea02ccb850f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ControlSonidoFinal
-  audioSource: {fileID: 1090337226}
-  volumenMaximo: 1
 --- !u!82 &1090337226
 AudioSource:
   m_ObjectHideFlags: 0
@@ -36287,6 +36273,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1090337227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090337223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e150ce2371f0c14fbf7ea02ccb850f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicaFinal
+  audioSource: {fileID: 1090337226}
+  volumen: 0.5
 --- !u!1 &1096088942 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6262220720897410001, guid: d242de835e22c654a9fef9180a3b779c, type: 3}
