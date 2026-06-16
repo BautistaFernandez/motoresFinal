@@ -140,9 +140,9 @@ public class FantasmaIA : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
        
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.lockState = CursorLockMode.None;
         
-        Cursor.visible = true;
+        //Cursor.visible = true;
 
         gameObject.SetActive(false);
     }

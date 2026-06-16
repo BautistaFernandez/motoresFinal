@@ -31,6 +31,9 @@ public class IntroManager : MonoBehaviour
     [Header("Cámara")]
     [SerializeField] private Unity.Cinemachine.CinemachinePanTilt cinemachinePanTilt;
 
+    [Header("Flashlight")]
+    [SerializeField] private Flashlight flashlight;
+
 
     private Rigidbody playerRb;
     private Movement playerMovement;
@@ -44,7 +47,31 @@ public class IntroManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        if (flashlight != null) flashlight.OnPickedUp += HandleLinternaRecogida;
     }
+
+    private void OnDestroy()
+    {
+        if (flashlight != null) flashlight.OnPickedUp -= HandleLinternaRecogida;
+    }
+
+    private void HandleLinternaRecogida()
+    {
+        StartCoroutine(MostrarPensamientoLinterna());
+    }
+
+    private IEnumerator MostrarPensamientoLinterna()
+    {
+        if (textoPensamiento != null)
+        {
+            textoPensamiento.gameObject.SetActive(true);
+            textoPensamiento.text = "Y este corte de luz? Tendré que usar la linterna para ver";
+            yield return new WaitForSeconds(6f);
+            textoPensamiento.gameObject.SetActive(false);
+        }
+    }
+
 
     void Start()
     {

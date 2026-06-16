@@ -27,22 +27,47 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Keypad")]
     [SerializeField] private NavKeypad.Keypad keypad;
 
+    [Header("Flashlight (para flujo del apagón)")]
+    [SerializeField] private Flashlight flashlight;
+
     private bool keypadResuelto = false;
+    private bool linternaRecogida = false;
+    private bool panelReactivado = false;
 
     private void Start()
     {
         if (keypad != null) keypad.OnCodigoCorrecto += HabilitarCajaDeLuz;
+        if (flashlight != null) flashlight.OnPickedUp += HandleLinternaRecogida;
+        CajaDeLuz.OnEnergiaRestaurada += HandlePanelReactivado;
+
         if (fusibleEnEscena != null) fusibleEnEscena.SetActive(false);
     }
 
     private void OnDestroy()
     {
         if (keypad != null) keypad.OnCodigoCorrecto -= HabilitarCajaDeLuz;
+        if (flashlight != null) flashlight.OnPickedUp -= HandleLinternaRecogida;
+        CajaDeLuz.OnEnergiaRestaurada -= HandlePanelReactivado;
     }
 
     private void HabilitarCajaDeLuz()
     {
         keypadResuelto = true;
+    }
+
+    private void HandleLinternaRecogida()
+    {
+        linternaRecogida = true;
+    }
+
+    private void HandlePanelReactivado()
+    {
+        panelReactivado = true;
+    }
+
+    private bool KeypadBloqueado()
+    {
+        return linternaRecogida && !panelReactivado;
     }
 
     private void Update()
@@ -101,8 +126,11 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (hit.collider.GetComponentInParent<KeypadFocus>() != null)
             {
-                promptText.text = "[E] Usar Keypad";
-                detectado = true;
+                if (!KeypadBloqueado())
+                {
+                    promptText.text = "[E] Usar Keypad";
+                    detectado = true;
+                }
             }
             else
             {
@@ -110,7 +138,7 @@ public class PlayerInteraction : MonoBehaviour
                 if (caja != null && !caja.YaSeActivo)
                 {
                     detectado = true;
-                    if (keypadResuelto)
+                    if (keypadResuelto || linternaRecogida)
                     {
                         promptText.text = TieneFusible ? "[E] Colocar Fusible" : "[E] Reactivar panel eléctrico";
                     }
@@ -176,15 +204,22 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
-            KeypadFocus keypad = hit.collider.GetComponentInParent<KeypadFocus>();
-            if (keypad != null)
+            KeypadFocus keypadFocus = hit.collider.GetComponentInParent<KeypadFocus>();
+            if (keypadFocus != null)
             {
-                keypad.Interactuar();
+                if (KeypadBloqueado())
+                {
+                    if (objectivePanel != null) objectivePanel.Show("Reactivá el panel eléctrico para usar el teclado");
+                }
+                else
+                {
+                    keypadFocus.Interactuar();
+                }
                 return;
             }
 
             CajaDeLuz cajaInteract = hit.collider.GetComponent<CajaDeLuz>();
-            if (cajaInteract != null && !cajaInteract.YaSeActivo && keypadResuelto)
+            if (cajaInteract != null && !cajaInteract.YaSeActivo && (keypadResuelto || linternaRecogida))
             {
                 if (TieneFusible)
                 {
@@ -195,8 +230,8 @@ public class PlayerInteraction : MonoBehaviour
                     if (!cajaDescubierta)
                     {
                         cajaDescubierta = true;
-                        objectivePanel.Show("Encuentra el fusible en la cocina");
-                        fusibleEnEscena.gameObject.SetActive(true);
+                        if (objectivePanel != null) objectivePanel.Show("Encuentra el fusible en la cocina");
+                        if (fusibleEnEscena != null) fusibleEnEscena.SetActive(true);
                     }
                 }
                 return;
