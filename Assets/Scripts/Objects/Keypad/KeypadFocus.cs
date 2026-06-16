@@ -37,7 +37,7 @@ public class KeypadFocus : MonoBehaviour
 
     private void Update()
     {
-        if (focused && !transitioning && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (focused && !transitioning && Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             StartCoroutine(ExitFocus());
         }
@@ -120,8 +120,8 @@ public class KeypadFocus : MonoBehaviour
         cam.localPosition = originalCamLocalPos;
         cam.localRotation = originalCamLocalRot;
 
-        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         if (cinemachineFPSCam != null) cinemachineFPSCam.gameObject.SetActive(true);
         if (playerMovement != null) playerMovement.enabled = true;
         if (playerInteraction != null) playerInteraction.enabled = true;

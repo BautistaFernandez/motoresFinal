@@ -41,7 +41,7 @@ public class InspectorManager : MonoBehaviour
 
         RotarObjeto();
 
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             TerminarInspeccion();
         }
