@@ -9,7 +9,7 @@ public class MenuPrincipal : MonoBehaviour
     void Update()
     {
  
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             if (panelControles.activeSelf)
             {
